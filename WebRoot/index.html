@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="css/bigautocomplete.css"/>
+    <script type="text/javascript" src="js/import.inc.js"></script>
+    <script type="text/javascript" src="js/bigautocomplete.js"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		$("#tt").bigAutocomplete({
+				width:521,
+				data:[{title:"中国好声音",result:{ff:"qq"}},
+				{title:"中国移动网上营业厅"},
+				{title:"中国银行"},
+				{title:"中国移动"},
+				{title:"中国好声音第三期"},
+				{title:"中国好声音 第一期"},
+				{title:"中国电信网上营业厅"},
+				{title:"中国工商银行"},
+				{title:"中国好声音第二期"},
+				{title:"中国地图"}],
+				callback:function(data){
+					alert(data.title);	
+				}
+			});
+			var _this = $('#select');
+			var _new_this = $(_this[0].outerHTML.replace('input','select')).removeAttr('type');
+			_new_this.addClass("form-control");
+			_this = _this.replaceWith(_new_this);
+			console.log(_this[0].tagName);
+			//debugger;
+			//$('<select></select>')
+			$('#select2').addClass("form-control");
+			//var div = $('#divlist div:contains("小")').css('display','none');
+			$('#divlist').find('div:contains("中")').css('display','none');
+			var str = 'li,lz';
+			var str1 = str ?str:'';
+			console.log('str1:'+str1);
+			var keywords = (str ?str:'').split(',');
+			console.log(keywords[(keywords.length-1)]);
+			
+			$('#wbk').unbind('focus').focus(function(){
+				console.log('dd');
+				$(this).css('outline','none');
+				$(this).css('border','');
+				$(this).css('outline','0');
+			});
+    	});
+     
+    </script>
+    
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="g-hd" id="j_head"></header>
+    <div class="container">  
+	   <div class="search">
+			<form action="#" method="post" name="searchform" id="searchform" class="searchinfo">
+				<ul>
+					<li><input type="text" id="tt" value="" class="text" /></li>
+					<li><input type="submit" value="搜索" class="button" /></li>
+				</ul>
+			</form>
+		</div>
+   	</div>
+   	<input type="text" id="select" value="" class="text" />
+   	<select class="form-control" id="select2">
+		<option>小学</option>
+		<option>中学</option>
+		<option>大学</option>
+	</select>
+	<div id="divlist" style="border:solid 1px red;height:300px;width:300px;z-index:9999;">
+		<div>小学</div>
+		<div>大中学</div>
+		<div>大学</div>
+	</div>
+	
+	<!-- <button type="button" style="background: url('bootstrap/plus/images/menu_arrows.png') no-repeat 5px center; width:10px;height:32px;" class="btn btn-default"></button> -->
+	<span style="float:left;display:block;overflow:hidden;position:relative;width:100%;">
+		<input type="text" value="--请选择--" class="form-control bootstrap-select_input" style="padding-left:17px;position:relative;">
+		<input type="hidden" value="">
+		<a href="javascript:;" style="width:15px;height:35px;top: 0px; right: 0px;position:absolute; background: url('bootstrap/plus/images/menu_arrows.png') no-repeat 0 center; "></a>
+		<div style="width:300px;float:left;height:300px;border:solid 1px red;position:relative;z-index:9999"></div>
+	</span>
+	
+	<span style="display:block;overflow:hidden;width:194px;border-radius:5px;border: 1px solid #ccc;">
+		<input id="sel_entrust_customer" value="" class="form-control bootstrap-select" autocomplete="off" type="text" placeholder="请选择" style="padding-left: 17px;display: inline-block;width:174px;border:0;">
+		<input type="hidden" name="entrust_customer_id" value="">
+		<a href="javascript:;" style="position: absolute;display: inline-block;width:20px;height:35px;background:url('bootstrap/plus/images/menu_arrows.png') no-repeat 0 center;"></a>
+		<div style="border: 1px solid rgb(188, 188, 188); position: absolute; z-index: 10000;float:left; width: 194px; max-height: 220px; overflow-x: hidden; overflow-y: auto;  display: block; background-color: rgb(255, 255, 255);" id="_bootstrap_combox_il_3">
+			<div style="padding-left: 17px; width: 100%; height: 20px; display: block; color: rgb(0, 0, 0);">门到门</div>
+			<div style="padding-left: 17px; width: 100%; height: 20px; display: block; color: rgb(0, 0, 0);">门到站</div>
+			<div style="padding-left: 17px; width: 100%; height: 20px; display: block; color: rgb(0, 0, 0);">站到门</div>
+			<div style="padding-left: 17px; width: 100%; height: 20px; display: block; color: rgb(0, 0, 0);">站到站</div>
+		</div>
+	</span>
+	
+	<span style="float:left;display:block;overflow:hidden;position:relative;width:100%;">
+		<input type="text" value="--请选择--" class="form-control bootstrap-select_input" style="padding-left:17px;position:relative;">
+		<input type="hidden" value="">
+		<a href="javascript:;" style="width:15px;height:35px;top: 0px; right: 0px;position:absolute; background: url('bootstrap/plus/images/menu_arrows.png') no-repeat 0 center; "></a>
+		<div style="width:300px;float:left;height:300px;border:solid 1px red;position:relative;z-index:9999"></div>
+	</span>
+	<div style="width:300px;height:300px;border:solid 1px #000;color:#FFFFFF;">ni hao a</div>
+	
+	<input class="form-control" id="wbk" placeholder="请点击"/>
+</body>
+</html>
