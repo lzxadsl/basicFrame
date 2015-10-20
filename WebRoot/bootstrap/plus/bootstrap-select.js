@@ -245,7 +245,7 @@
     	var height = $input.outerHeight();
     	var name = $input.attr('name')?$input.attr('name'):'';//name属性
     	$input.removeAttr('name');//删除name属性，最终把name属性移到隐藏域上
-    	$input.wrap('<span style="height:'+height+'px;border-radius:4px;border: 1px solid #ccc;display:block;overflow:hidden;width:'+width+'px;"></span>');
+    	$input.wrap('<span style="height:'+height+'px;display:block;overflow:hidden;width:'+width+'px;"></span>');
     	$input.css('padding-left','17px');
     	//$input.css('display','inline-block');//20151012 去掉该属性
     	$input.css('float','left');//20151012 增加该属性
@@ -259,33 +259,26 @@
     	if(options.emptyText != undefined && options.emptyText != null){
     		$input.val(options.emptyText);
     	}
-    	//20151012 修改a高度-1，改变属性position 为 relative，增加float
-    	if($this.options.downBorder){
-    		$input.css('border-bottom-right-radius',0);
-        	$input.css('border-top-right-radius',0);
-    		$input.css('width',(width-20)+'px');
-    		$input.parent().css('border',0);
-    		$('<a href="javascript:;" style="float:right;position:relative;display:inline-block;'
-        			+'width:20px;height:'+(height)+'px;border-radius:4px;border:solid 1px #ccc;border-left:0;border-bottom-left-radius: 0; border-top-left-radius: 0;'
-        			+'background-color:#eee;">'
-        			+'<span style="margin: 14px 4.5px 13px;display: inline-block;'
-    					+'width: 0px;height: 0px;border-top: 5px solid #555;'
-    					+'border-right: 5px solid transparent;border-left: 5px solid transparent">'
-    				+'</span>'
-    			+'</a>').insertAfter($input);
-    	}
-    	else{
-    		$input.css('border','0');
-    		$input.css('width',(width-22)+'px');
-    		$('<a href="javascript:;" style="float:right;position:relative;display:inline-block;'
-        			+'width:20px;height:'+(height)+'px;'
-        			+'">'
-        			+'<span style="margin: 14px 4.5px 13px;display: inline-block;'
-        				+'width: 0px;height: 0px;border-top: 5px solid #555;'
-        				+'border-right: 5px solid transparent;border-left: 5px solid transparent">'
-        			+'</span>'
-        	+'</a>').insertAfter($input);
-    	}
+    	var astyle = 'float:right;position:relative;display:inline-block;'
+			+'width:20px;height:'+(height)+'px;border-radius:4px;border:solid 1px #ccc;'
+			+'border-left:0;border-bottom-left-radius: 0; border-top-left-radius: 0;';
+
+		$input.css('border-bottom-right-radius',0);
+		$input.css('border-top-right-radius',0);
+		$input.css('width',(width-20)+'px');
+		//20151012 修改a高度-1，改变属性position 为 relative，增加float
+		if($this.options.downBorder){
+			astyle += 'background-color:#eee;';
+		}
+		else{
+			$input.css('border-right',0);
+		}
+		$('<a href="javascript:;" style="'+astyle+'">'
+			+'<span style="margin: 14px 4.5px 13px;display: inline-block;'
+				+'width: 0px;height: 0px;border-top: 5px solid #555;'
+				+'border-right: 5px solid transparent;border-left: 5px solid transparent">'
+			+'</span>'
+		+'</a>').insertAfter($input);
     	$('<input type="hidden" name="'+name+'" value="'+options.emptyValue+'">').insertAfter($input);
     };
 
@@ -318,7 +311,7 @@
     	});
     	//文本框得到焦点
     	$input.unbind('focus').focus(function(){
-    		$(this).css('outline','none');
+    		//$(this).css('outline','none');
     		$this.showDownList();
 		});
     	//文本框失去焦点
@@ -351,6 +344,7 @@
     		+'position: absolute;'//relative absolute
     		+'z-index: 10000;'
     		+'float:left;'
+    		+'top:0;'
     		//+'height:25px;'
     		+'width:'+(width+20)+'px;'
     		+'margin-top:'+height+'px;'//20151012 增加该属性
@@ -362,12 +356,12 @@
     	$this.contentDownId = _id;
     	$('<div style="'+style+'" id="'+_id+'"></div>').appendTo($this.$el.parent());
     	var $div = $('#'+_id);
-    	$(document).bind('mousedown',function(event){
+    	/*$(document).bind('mousedown',function(event){
 			var $target = $(event.target);
 			if(!($target.parents().andSelf().is($div)) && !($target.parents().andSelf().is($this.$el.parent()))){
 				$this.hideDownList();
 			};
-		});
+		});*/
 		//鼠标悬停时选中当前行
     	$('#'+_id).delegate('div', 'mouseover', function() {//鼠标经过，设置背景色
 			if(!$(this).hasClass($this.options.selItemCls)){//已被选择的除外
@@ -449,7 +443,7 @@
 				});
 				//重新设置隐藏值
 				$this.$el.parent().find('input[type=hidden]').val(vals.join($this.options.separator));
-				$contentDownList.css('float','');
+				//$contentDownList.css('float','');
 				return;
 			}
 			//获取选择项跟输入框中的值进行匹配
@@ -469,7 +463,7 @@
 			//下拉框显示模糊匹配到的项
 			$contentDownList.find('div:not(:contains("'+keywords[cursorIndex]+'"))').css('display','none');
 			$contentDownList.find('div:contains("'+keywords[cursorIndex]+'")').css('display','block');
-			$contentDownList.css('float','');
+			//$contentDownList.css('float','');
 		}
 		//回车键
 		if(k == 13){
@@ -582,9 +576,12 @@
 			var items = $contentDownList.find('div');
 			items.css('background','');//清除背景色
 			//items.css('color','#000000');//恢复字体颜色
-			this.$el.parent().css('box-shadow','');
-			this.$el.parent().css('border-color','#ccc');
+			this.$el.parent().find('a').css('box-shadow','');
+			this.$el.parent().find('a').css('border-color','#ccc');
+			this.$el.css('box-shadow','');
+			this.$el.css('border-color','');
 			$contentDownList.hide();
+			$(document).unbind('mousedown');
 		}		
 	};
 	/**
@@ -611,11 +608,19 @@
 		$contentDownList.find('.'+$this.options.selItemCls).css({'background':'none repeat scroll 0 0 '+$this.options.selItemColor},{'color':'#FFFFFF'});
 		//下拉框显示时设置span获取焦点表框样式
 		if(!$this.options.downBorder){
-			$this.$el.parent().css('box-shadow','rgba(0, 0, 0, 0.0745098) 0px 1px 1px inset, rgba(102, 175, 233, 0.6) 0px 0px 8px');
-			$this.$el.parent().css('border-color','#66afe9');
+			$this.$el.parent().find('a').css('box-shadow','rgba(0, 0, 0, 0.0745098) 0px 1px 1px inset, rgba(102, 175, 233, 0.6) 0px 0px 8px');
+			$this.$el.parent().find('a').css('border-color','#66afe9');
+			$this.$el.css('box-shadow','rgba(0, 0, 0, 0.0745098) 0px 1px 1px inset, rgba(102, 175, 233, 0.6) 0px 0px 8px');
+			$this.$el.css('border-color','#66afe9');
 		}
-		$contentDownList.css('float','left');
-		$contentDownList.show();		
+		//$contentDownList.css('float','left');
+		$contentDownList.show();	
+		$(document).bind('mousedown',function(event){
+			var $target = $(event.target);
+			if(!($target.parents().andSelf().is($contentDownList)) && !($target.parents().andSelf().is($this.$el.parent()))){
+				$this.hideDownList();
+			};
+		});
 	};
 
 	/**
