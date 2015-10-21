@@ -130,7 +130,7 @@
     	$input.addClass('form-control');
     	$input.addClass(options.cls.replace(/,/g,' '));
     	//获取元素宽、高
-    	var width = $input.outerWidth() - 1;
+    	var width = $input.outerWidth() - 2;
     	var height = $input.outerHeight();
     	var name = $input.attr('name')?$input.attr('name'):'';//name属性
     	$input.removeAttr('name');//删除name属性，最终把name属性移到隐藏域上
