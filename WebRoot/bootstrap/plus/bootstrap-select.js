@@ -344,18 +344,17 @@
     		+'position: absolute;'//relative absolute
     		+'z-index: 10000;'
     		+'float:left;'
-    		+'top:0;'
+    		//+'top:0;'
     		//+'height:25px;'
     		+'width:'+(width+20)+'px;'
     		+'margin-top:'+height+'px;'//20151012 增加该属性
     		+'max-height: 220px;'
     		+'overflow-x: hidden;'
     		+'overflow-y: auto;';
-    	var comboIndex = $('div[id^="'+this.options.downListIdPrefix+'"]').length+1;
-    	var _id = $this.options.downListIdPrefix+comboIndex;
-    	$this.contentDownId = _id;
-    	$('<div style="'+style+'" id="'+_id+'"></div>').appendTo($this.$el.parent());
-    	var $div = $('#'+_id);
+
+    	$('<div style="'+style+'"></div>').appendTo($this.$el.parent());
+    	//var $div = $('#'+_id);
+    	var $div = $this.$el.parent().find('div');
     	/*$(document).bind('mousedown',function(event){
 			var $target = $(event.target);
 			if(!($target.parents().andSelf().is($div)) && !($target.parents().andSelf().is($this.$el.parent()))){
@@ -363,7 +362,7 @@
 			};
 		});*/
 		//鼠标悬停时选中当前行
-    	$('#'+_id).delegate('div', 'mouseover', function() {//鼠标经过，设置背景色
+    	$div.delegate('div', 'mouseover', function() {//鼠标经过，设置背景色
 			if(!$(this).hasClass($this.options.selItemCls)){//已被选择的除外
 				$(this).css('background','none repeat scroll 0 0 #0080FF');
 				$(this).css('color','#FFFFFF');
@@ -443,7 +442,7 @@
 				});
 				//重新设置隐藏值
 				$this.$el.parent().find('input[type=hidden]').val(vals.join($this.options.separator));
-				//$contentDownList.css('float','');
+				$contentDownList.css('float','');
 				return;
 			}
 			//获取选择项跟输入框中的值进行匹配
@@ -463,7 +462,7 @@
 			//下拉框显示模糊匹配到的项
 			$contentDownList.find('div:not(:contains("'+keywords[cursorIndex]+'"))').css('display','none');
 			$contentDownList.find('div:contains("'+keywords[cursorIndex]+'")').css('display','block');
-			//$contentDownList.css('float','');
+			$contentDownList.css('float','');
 		}
 		//回车键
 		if(k == 13){
@@ -613,7 +612,7 @@
 			$this.$el.css('box-shadow','rgba(0, 0, 0, 0.0745098) 0px 1px 1px inset, rgba(102, 175, 233, 0.6) 0px 0px 8px');
 			$this.$el.css('border-color','#66afe9');
 		}
-		//$contentDownList.css('float','left');
+		$contentDownList.css('float','left');
 		$contentDownList.show();	
 		$(document).bind('mousedown',function(event){
 			var $target = $(event.target);

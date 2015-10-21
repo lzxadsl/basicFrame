@@ -23,7 +23,7 @@
             	 if (!data) {
                      return;
                  }
-            	 value = BootstrapSelectTree[option](agrs);
+            	 value = data[option](agrs);
             	 if (option === 'destroy') {
                      $this.removeData('bootstrap.selectTree');
                  }
@@ -51,6 +51,7 @@
 	        method : 'get',//请求方法
 	        editable   : true,//是否可编辑
 	        separator  : ',',//多选时返回值的分割符
+	        multiple : false,//多选
 	        downBorder : false,//下拉按钮是否带边框
 	        cls:'',//自定义样式,多个样式用逗号隔开 class1,class2
 	        setting : {},//属性菜单基本配置信息
@@ -60,6 +61,8 @@
 	        onBeforeLoad: function(param){},//param 请求参数
 			onLoadSuccess: function(data){},//data加载成功后返回的数据
 			onLoadError: function(){},
+			onExpand:function(event, treeId, treeNode){},//展开事件
+			onCollapse:function(event, treeId, treeNode){},//折叠事件
 			filter : false//选项过滤
 	};
 	
@@ -71,7 +74,7 @@
         //键盘上功能键键值数组
         this.functionalKeyArray = [9,20,13,16,17,18,91,92,93,45,36,33,34,35,37,39,112,113,114,115,116,117,118,119,120,121,122,123,144,19,145,40,38,27];
         this.$contentDownList = null;//下拉框
-        this.options.downListIdPrefix = '_bootstrap_combox_tree_il_';//下拉框id前缀
+        this.options.downListIdPrefix = '_bootstrap_combox_zTree_il_';//下拉框id前缀
         this.lastSelText = [];//保存最后一次选择的内容
         this.options.downListCls = 'zTree-downlist';//下拉框样式，目前此样式为空，预留
         this.options.selItemCls = 'zTree-item-selected',//被选择节点样式,目前犹豫没有引用样式文件，所以此样式只是个空的
@@ -228,15 +231,21 @@
     		+'position: absolute;'//relative absolute
     		+'z-index: 10000;'
     		+'float:left;'
-    		+'top:0;'
+    		//+'top:0;'
     		+'width:'+(width+20)+'px;'
     		+'margin-top:'+height+'px;'//20151012 增加该属性
     		+'max-height: 220px;'
     		+'overflow-x: hidden;'
     		+'overflow-y: auto;';
-    	
-    	var comboIndex = $('ul[id^="'+$this.options.downListIdPrefix+'"]').length+1;
-    	var _id = $this.$el.attr('id')?$this.$el.attr('id')+'_zTree':$this.options.downListIdPrefix+comboIndex;
+    	var _id = null;
+    	for(var i = 0; i < 999; i++){
+    		_id = $this.options.downListIdPrefix + i;
+    		if($('#'+_id) && $('#'+_id).length < 1 ){
+    			$this.contentDownId = _id;
+    			break;
+    		}
+    	}
+    	_id = $this.$el.attr('id')?$this.$el.attr('id')+'_zTree':_id;
     	$this.contentUlId = _id;
     	$('<div style="'+style+'" ><ul id="'+_id+'" class="ztree"></ul></div>').appendTo($this.$el.parent());
     	var $div = $this.$el.parent().find('div');
@@ -266,41 +275,131 @@
     	var $this = this;
     	var zNodes = $this.options.data;
     	var setting = {
+			check: {
+				enable: $this.options.multiple
+			},
 			view: {
 				dblClickExpand: false
 			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
 			callback: {
-				beforeClick:function (treeId,treeNode) {
-					var check = (treeNode && !treeNode.isParent);
-					return true;
-				},
-				onClick:function (e,treeId,treeNode) {
-					var zTree = $.fn.zTree.getZTreeObj(treeId),
-					nodes = zTree.getSelectedNodes(),
-					vals = [],
-					ids = [];
-					nodes.sort(function compare(a,b){return a.id-b.id;});
-					console.log(nodes);
-					for (var i=0, l = nodes.length; i<l; i++) {
-						vals.push(nodes[i].name);
-						ids.push(nodes[i].id);
-					}
-					$this.$el.parent().find('input[type="text"]').val(vals.join(','));
-					$this.$el.parent().find('input[type="hidden"]').val(ids.join(','));
-					$this.hideDownList();
-					$this.options.onSelect.call(this,ids.join(','),treeNode);
-				}	
 			}
 		};
+    	var callback = {
+			beforeClick:function (treeId,treeNode) {
+				var check = (treeNode && !treeNode.isParent);
+				$('#'+$this.contentUlId).find('a').removeClass('curSelectedNode');
+				return true;
+			},
+			beforeCheck:function (treeId,treeNode) {
+				var check = (treeNode && !treeNode.isParent);
+				$('#'+$this.contentUlId).find('a').removeClass('curSelectedNode');
+				return true;
+			},
+			onExpand:function(event, treeId, treeNode){
+				if($this.$contentDownList.attr('style').indexOf('float') != -1){
+					$this.$contentDownList.css('float','');
+				}
+				else{
+					$this.$contentDownList.css('float','left');
+				}
+				$this.options.onExpand.call(event, treeId, treeNode);
+			},
+			onCollapse:function(event, treeId, treeNode){
+				if($this.$contentDownList.attr('style').indexOf('float') != -1){
+					$this.$contentDownList.css('float','');
+				}
+				else{
+					$this.$contentDownList.css('float','left');
+				}
+				$this.options.onCollapse.call(event, treeId, treeNode);
+			}
+		};
+    	if($this.options.multiple){
+    		callback['onCheck'] = function (e,treeId,treeNode) {
+				var zTree = $.fn.zTree.getZTreeObj(treeId),
+				nodes = zTree.getCheckedNodes(true),
+				vals = [],
+				ids = [];
+				nodes.sort(function compare(a,b){return a.id-b.id;});
+				for (var i=0, l = nodes.length; i<l; i++) {
+					vals.push(nodes[i].name);
+					ids.push(nodes[i].id);
+				}
+				$this.$el.parent().find('input[type="text"]').val(vals.join($this.options.separator));
+				$this.$el.parent().find('input[type="hidden"]').val(ids.join($this.options.separator));
+				//$this.hideDownList();
+				$this.options.onSelect.call(this,ids.join(','),treeNode);
+			}
+    	}
+    	else{
+    		callback['onClick'] = function (e,treeId,treeNode) {
+				var zTree = $.fn.zTree.getZTreeObj(treeId),
+				nodes = zTree.getSelectedNodes(),
+				vals = [],
+				ids = [];
+				nodes.sort(function compare(a,b){return a.id-b.id;});
+				for (var i=0, l = nodes.length; i<l; i++) {
+					vals.push(nodes[i].name);
+					ids.push(nodes[i].id);
+				}
+				$this.$el.parent().find('input[type="text"]').val(vals.join($this.options.separator));
+				$this.$el.parent().find('input[type="hidden"]').val(ids.join($this.options.separator));
+				$this.hideDownList();
+				$this.options.onSelect.call(this,ids.join(','),treeNode);
+			}
+    	}
+    	setting['callback'] = callback;
     	$this.setting = $.extend({},setting,$this.options.setting);
     	$.fn.zTree.init($('#'+$this.contentUlId),$this.setting,zNodes);
     	$this.zTreeObj = $.fn.zTree.getZTreeObj($this.contentUlId);
-		setSelect($this,$this.zTreeObj.getNodes());
-    	console.log($this.zTreeObj.getSelectedNodes());
+		$this.select();
     }
     
     BootstrapSelectTree.prototype.getZTreeObj = function(){
     	return $this.zTreeObj;
+    };
+    
+    /**
+     * 设置选中
+     */
+    BootstrapSelectTree.prototype.select = function(_nodes){
+    	var $this = this;
+    	var value = $this.$el.parent().find('input[type="hidden"]').val();
+		var nodes = _nodes || $this.zTreeObj.getNodes();
+		var values = value.replace(/\[/g,'').replace(/\]/g,'').split($this.options.separator);
+		var text = [];
+		$.each(nodes,function(i,node){
+			if(node.isParent){
+				node.nocheck = true;
+				$this.zTreeObj.expandNode(node,true,true,true);
+			}
+    		if($.inArray(String(node.id),values) != -1){
+    			text.push(node.name);
+    			if($this.options.multiple){//多选
+    				node.checked = true;
+    			}
+    			else{
+    				$('#'+node.tId+'_a').addClass('curSelectedNode');
+    			}
+    			$this.$el.parent().find('input[type="text"]').val(text.join($this.options.separator));
+    		}
+    		if(node.children && node.children.length > 0){
+    			$this.select(node.children);
+    		}
+    		$this.zTreeObj.updateNode(node);
+    	});
+    };
+    
+    /**
+     * 获取选中值
+     */
+    BootstrapSelectTree.prototype.getValue = function(){
+    	return this.$el.parent().find('input[type="hidden"]').val();
     };
     
     /**
@@ -522,91 +621,12 @@
 	};
 
 	/**
-     * 选择时触发
-     * @param selItem 被选择的节点
-     * @param keyEvent 是否是按上下键触发的选择
-	 */
-	BootstrapSelectTree.prototype.select = function(selItem,keyEvent){
-		keyEvent = keyEvent || false;
-		var $this = this;
-		var options = $this.options;
-		var selRecord = [];//被选择项数据
-		var vals = [];//值
-		var text = [];//文本
-		var $selItem = selItem;
-		var unSelect = false;//是否反选
-		if($this.options.multiple){//多选
-			if($selItem.hasClass($this.options.selItemCls)){//选择时如果该项已被选择，则做反选动作
-				$selItem.removeClass($this.options.selItemCls);
-				$selItem.css('background','');
-				unSelect = true;
-			}
-			else{
-				$selItem.addClass($this.options.selItemCls);
-				$selItem.css({'background':'none repeat scroll 0 0 '+$this.options.selItemColor},{'color':'#FFFFFF'});
-			}
-		}
-		else{
-			$this.$contentDownList.find('div:not(this)').removeClass($this.options.selItemCls); 
-			$this.$contentDownList.find('div:not(this)').css('background',''); 
-			$selItem.addClass($this.options.selItemCls);
-			$selItem.css({'background':'none repeat scroll 0 0 '+$this.options.selItemColor},{'color':'#FFFFFF'});
-			if(!keyEvent){
-				$this.hideDownList();
-			}
-		}
-		
-		this.$contentDownList.find('.'+options.selItemCls).each(function(i,v){
-			$(this).css('color','#000000');//被选择的项字体设置成黑色
-			selRecord.push($(this).data('jsonData'));
-			vals.push($(this).data('jsonData')[options.valueField]);
-			text.push($(this).data('jsonData')[options.textField]);
-		});
-		$this.$el.parent().find('input[type="hidden"]').val(vals.join(options.separator));
-		$this.$el.parent().find('input[type="text"]').val(text.join(options.separator));
-		$this.lastSelText = text;
-		
-		if(unSelect){
-			options.unSelect.call(this,$selItem.data('jsonData')[$this.options.valueField],$selItem.data('jsonData'));
-		}
-		else{
-			options.onSelect.call(this,$selItem.data('jsonData')[$this.options.valueField],$selItem.data('jsonData'));
-		}
-	};
-	/**
 	 * 清空下拉节点
 	 */
 	BootstrapSelectTree.prototype.clear = function(){
-		var $this = this;
-		var itemsHtml = '';
-		if($this.options.emptyText != undefined && $this.options.emptyText != null){
-			var nullItem = {};
-	    	nullItem[$this.options.textField] = $this.options.emptyText;
-	    	nullItem[$this.options.valueField] = '';
-			itemsHtml = '<div style="padding-left:17px;width:100%;height:20px;">' + $this.options.emptyText + '</div>'; 
-			//每行tr绑定数据，返回给回调函数
-			$this.$contentDownList.find('div').each(function(index,val){
-				$(this).data('jsonData',nullItem);
-			});
-		}
-		$this.$el.parent().find('input').val('');
-		$this.$contentDownList.html(itemsHtml);
+		
 	};
 	
-	/**
-	 * 根据值获取文本
-	 */
-	BootstrapSelectTree.prototype.getTextForVal = function(value){
-		var $this = this;
-		var retVal = '';
-		$.each($this.options.data,function(i,data){
-			if(data[$this.options.textField] == value){
-				retVal = data[$this.options.valueField];
-				return false;
-			}
-		});
-		return retVal;
-	};
 	/**
      * 获取光标在字符串中的位置
      */
@@ -663,16 +683,4 @@
 		$input.val(inputText.join(options.separator));//文本框设置文本
 	}
 	
-	function setSelect($this,nodes,value){
-		var value = $this.$el.parent().find('input[type="hidden"]').val();
-		$.each(nodes,function(i,obj){
-    		if(obj.id == value){
-    			$this.$el.parent().find('input[type="text"]').val(obj.name);
-    			return true;
-    		}
-    		if(obj.children.length > 0){
-    			setSelect($this,obj.children,value);
-    		}
-    	});
-	}
 })(jQuery);

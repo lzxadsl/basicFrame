@@ -18,7 +18,9 @@ var common_js_files = [
                        'bootstrap/plus/table/bootstrap-table-edit.js',
                        'bootstrap/plus/datatime/bootstrap-datetimepicker.min.js',
                        'bootstrap/plus/datatime/bootstrap-datetimepicker.zh-CN.js',
+                       'bootstrap/plus/ztree/js/jquery.ztree.all-3.5.min.js',
                        'bootstrap/plus/bootstrap-select.js',
+                       'bootstrap/plus/bootstrap-selectTree.js',
                        'js/frame-sys.js'
                    ];
 //系统CSS文件对象
@@ -26,6 +28,7 @@ var common_css_files = [
                         'bootstrap/css/bootstrap.min.css',
                         'bootstrap/plus/table/bootstrap-table.min.css',
                         'bootstrap/plus/datatime/bootstrap-datetimepicker.min.css',
+                        'bootstrap/plus/ztree/css/metroStyle/metroStyle.css',
                         'css/index.css'
                    ];
 
