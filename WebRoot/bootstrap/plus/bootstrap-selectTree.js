@@ -79,6 +79,7 @@
         this.options.downListCls = 'zTree-downlist';//下拉框样式，目前此样式为空，预留
         this.options.selItemCls = 'zTree-item-selected',//被选择节点样式,目前犹豫没有引用样式文件，所以此样式只是个空的
         this.options.selItemColor = '#ffe48d';//被选中节点背景色，暂时使用这个
+        this.selText = [];//保存被选中的文本
         this.contentUlId = null;//下拉树id
         this.zTreeObj = null;
         this.init();
@@ -290,16 +291,6 @@
 			}
 		};
     	var callback = {
-			beforeClick:function (treeId,treeNode) {
-				var check = (treeNode && !treeNode.isParent);
-				$('#'+$this.contentUlId).find('a').removeClass('curSelectedNode');
-				return true;
-			},
-			beforeCheck:function (treeId,treeNode) {
-				var check = (treeNode && !treeNode.isParent);
-				$('#'+$this.contentUlId).find('a').removeClass('curSelectedNode');
-				return true;
-			},
 			onExpand:function(event, treeId, treeNode){
 				if($this.$contentDownList.attr('style').indexOf('float') != -1){
 					$this.$contentDownList.css('float','');
@@ -357,7 +348,7 @@
     	$this.setting = $.extend({},setting,$this.options.setting);
     	$.fn.zTree.init($('#'+$this.contentUlId),$this.setting,zNodes);
     	$this.zTreeObj = $.fn.zTree.getZTreeObj($this.contentUlId);
-		$this.select();
+		$this.setSelect();
     }
     
     BootstrapSelectTree.prototype.getZTreeObj = function(){
@@ -367,32 +358,49 @@
     /**
      * 设置选中
      */
-    BootstrapSelectTree.prototype.select = function(_nodes){
+    BootstrapSelectTree.prototype.setSelect = function(_nodes){
     	var $this = this;
     	var value = $this.$el.parent().find('input[type="hidden"]').val();
+    	console.log('v:'+value);
 		var nodes = _nodes || $this.zTreeObj.getNodes();
 		var values = value.replace(/\[/g,'').replace(/\]/g,'').split($this.options.separator);
-		var text = [];
 		$.each(nodes,function(i,node){
 			if(node.isParent){
 				node.nocheck = true;
 				$this.zTreeObj.expandNode(node,true,true,true);
 			}
-    		if($.inArray(String(node.id),values) != -1){
-    			text.push(node.name);
+			else if($.inArray(String(node.id),values) != -1){
+				$this.selText.push(node.name);
     			if($this.options.multiple){//多选
     				node.checked = true;
-    			}
-    			else{
+    			}else{
     				$('#'+node.tId+'_a').addClass('curSelectedNode');
+    				$this.zTreeObj.selectNode(node);
     			}
-    			$this.$el.parent().find('input[type="text"]').val(text.join($this.options.separator));
+    			$this.$el.parent().find('input[type="text"]').val($this.selText.join($this.options.separator));
     		}
+    		else{
+    			if($this.options.multiple){//多选
+    				node.checked = false;
+    			}else{
+    				$this.zTreeObj.cancelSelectedNode(node);//清除原来选中
+    			}
+    		}
+    		
     		if(node.children && node.children.length > 0){
-    			$this.select(node.children);
+    			$this.setSelect(node.children);
     		}
     		$this.zTreeObj.updateNode(node);
     	});
+    };
+    
+    /**
+     * 设置选中，主要提供给外部调用
+     */
+    BootstrapSelectTree.prototype.select = function(value){
+    	this.$el.parent().find('input[type="hidden"]').val(value);
+    	this.selText = [];
+    	this.setSelect();
     };
     
     /**

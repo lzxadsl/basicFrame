@@ -168,11 +168,12 @@
 		    	//url: 'order/order/get_ascription_org.htm',
 		    	data:zNodes,
 				downBorder:true,
-				multiple:true,
+				//multiple:true,
 				onSelect:function(val,rec){
 					
 				}
 			});
+			//$('#ascription_org_id').bootstrapSelectTree('select','63,64');
     	});
 		function removeRow(rowIndex){
 			$('#reportTable').bootstrapTable('removeRow',rowIndex);
@@ -209,7 +210,7 @@
 				<option value=5>she</option>
 			 </select>
 			  树形下拉：
-			 <input id="ascription_org_id" style="width:190px;" name="ascription_org_id" value="51" class="form-control">
+			 <input id="ascription_org_id" style="width:190px;" name="ascription_org_id" value="51,64" class="form-control">
 		   </div>
 		   
 		<button type="button" id="reload_btn" class="btn btn-default">重新加载下拉框1</button>
