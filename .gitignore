@@ -1,5 +1,5 @@
 licence.png
-db.properties
+#db.properties
 build/
 classes/
 bak
@@ -15,7 +15,7 @@ Thumbs.db
 *.BAK
 *.svn
 *~
-/.classpath
+#/.classpath
 /.gitignore
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

@@ -13,7 +13,6 @@ import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import com.frame.solr.model.SolrPage;
 
-
 /**
  * solrj工具类
  * @author LiZhiXian
