@@ -325,7 +325,7 @@
 				$this.$el.parent().find('input[type="hidden"]').val(ids.join($this.options.separator));
 				//$this.hideDownList();
 				$this.options.onSelect.call(this,ids.join(','),treeNode);
-			}
+			};
     	}
     	else{
     		callback['onClick'] = function (e,treeId,treeNode) {
@@ -342,14 +342,14 @@
 				$this.$el.parent().find('input[type="hidden"]').val(ids.join($this.options.separator));
 				$this.hideDownList();
 				$this.options.onSelect.call(this,ids.join(','),treeNode);
-			}
+			};
     	}
     	setting['callback'] = callback;
     	$this.setting = $.extend({},setting,$this.options.setting);
     	$.fn.zTree.init($('#'+$this.contentUlId),$this.setting,zNodes);
     	$this.zTreeObj = $.fn.zTree.getZTreeObj($this.contentUlId);
 		$this.setSelect();
-    }
+    };
     
     BootstrapSelectTree.prototype.getZTreeObj = function(){
     	return $this.zTreeObj;
@@ -361,7 +361,6 @@
     BootstrapSelectTree.prototype.setSelect = function(_nodes){
     	var $this = this;
     	var value = $this.$el.parent().find('input[type="hidden"]').val();
-    	console.log('v:'+value);
 		var nodes = _nodes || $this.zTreeObj.getNodes();
 		var values = value.replace(/\[/g,'').replace(/\]/g,'').split($this.options.separator);
 		$.each(nodes,function(i,node){

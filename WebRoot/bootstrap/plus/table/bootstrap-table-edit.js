@@ -18,8 +18,7 @@
         _init = BootstrapTable.prototype.init,
         _initBody = BootstrapTable.prototype.initBody,
         _onSort = BootstrapTable.prototype.onSort,
-        _append = BootstrapTable.prototype.append,
-        _initHeader = BootstrapTable.prototype.initHeader ;
+        _append = BootstrapTable.prototype.append;
     //添加编辑表格默认属性,如何edit设置为false时，表示该列不可编辑
     $.extend(true,BootstrapTable.COLUMN_DEFAULTS,{
         edit:{
@@ -47,10 +46,7 @@
         	//this.initEdit();
         }
     };
-	/*BootstrapTable.prototype.initHeader = function(){
-		_initHeader.apply(this, Array.prototype.slice.apply(arguments));
-		this.$container.find('.fixed-table-header').addClass('success');
-	};*/
+
     BootstrapTable.prototype.initBody = function () {
     	var that = this;
     	

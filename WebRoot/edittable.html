@@ -75,7 +75,7 @@
 					{field:"user_isv2",title:"isv2",align:"center"},
 					{field:"userstatus_usertype",title:"usertype",align:"center"},
 					{field:"userstatus_package_id",title:"package_id",align:"center"},
-					{field:"userstatus_end_time",title:"end_time",align:"center",formatter:function(value,row,rowIndex){
+					{title:"end_time",align:"center",formatter:function(value,row,rowIndex){
 						var strHtml = '<a href="javascript:void(0);" onclick="removeRow('+rowIndex+')">删除</a>';
 						return strHtml;
 					},edit:false}
@@ -221,7 +221,7 @@
 	   <div class="tab-pane fade in active" id="tab2">
 	   	  <button type="button" class="btn btn-default" id="addRowbtn">添加行</button>
 	      <table class="table table-striped table-hover" id="reportTable"></table>
-		  <!--<table class="table table-striped table-hover" id="reportTable1"></table>-->
+		  <table class="table table-striped table-hover" id="reportTable1"></table>
 	   </div>
 	   
 	   <!--日期控件-->
