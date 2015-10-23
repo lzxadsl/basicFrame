@@ -600,7 +600,12 @@
 			this.$el.css('box-shadow','');
 			this.$el.css('border-color','');
 			$contentDownList.hide();
-			$(document).unbind("mousedown");
+			$(document).unbind('mousedown',function(event){
+				var $target = $(event.target);
+				if(!($target.parents().andSelf().is($contentDownList)) && !($target.parents().andSelf().is($this.$el.parent()))){
+					$this.hideDownList();
+				};
+			});
 		}		
 	};
 	/**

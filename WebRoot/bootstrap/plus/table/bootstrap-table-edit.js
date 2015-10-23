@@ -29,11 +29,11 @@
     BootstrapTable.prototype.init = function () {
         _init.apply(this, Array.prototype.slice.apply(arguments));
         var that = this;
-        that.prevEditRow = null;//上一次编辑的行
-        that.columns = {};//列配置信息
-        that.insertRowVal = {};//新插入行的默认值
-        that.enableAppend = true;//允许添加新行
         if (that.options.editable) {
+        	that.prevEditRow = null;//上一次编辑的行
+            that.columns = {};//列配置信息
+            that.insertRowVal = {};//新插入行的默认值
+            that.enableAppend = true;//允许添加新行
         	var columnObj = this['getColumns']();
 	    	$.each(columnObj,function(i,obj){
 	    		$.each(obj,function(z,col){
@@ -241,19 +241,18 @@
     		$tr.find('td').closest('td').siblings().html(function(i,html){
     			initTrClick(that,this);
         	});
+    		//鼠标点击事件
+        	$(document).bind('mousedown',function(event){
+    			var $target = $(event.target);
+    			if(!($target.parents().andSelf().is(that.$body)) && !($target.parents().andSelf().is($('.datetimepicker')))){
+    				setTimeout(function () {
+    					recover(that);
+    					//that.prevEditRow = null;
+    					//that.$body.find('> tr').removeClass('editable-select');
+    			    },10);
+    			};
+    		});
     	});
-    	//鼠标点击事件
-    	$(document).bind('mousedown',function(event){
-			var $target = $(event.target);
-			if(!($target.parents().andSelf().is(that.$body)) && !($target.parents().andSelf().is($('.datetimepicker')))){
-				setTimeout(function () {
-					recover(that);
-					//that.prevEditRow = null;
-					//that.$body.find('> tr').removeClass('editable-select');
-			    },10);
-			};
-		});
-    	
     };
     
     $.fn.bootstrapTable.methods.push('getColumns',
@@ -273,7 +272,7 @@
 			return ;
 		}
 		$td.data('field',tdOpt.field);
-		if(!$td.data('oldVal')){
+		if($td.data('oldVal') == undefined && $td.data('oldVal') == null){
 			$td.data('oldVal',$.trim(rowData[tdOpt.field]));
 		}
 		var height = $td.innerHeight() - 3;
@@ -370,6 +369,17 @@
     		that.prevEditRow = null;
     		that.$body.find('> tr').removeClass('editable-select');
 		}
+		//取消鼠标点击事件
+    	$(document).unbind('mousedown',function(event){
+			var $target = $(event.target);
+			if(!($target.parents().andSelf().is(that.$body)) && !($target.parents().andSelf().is($('.datetimepicker')))){
+				setTimeout(function () {
+					recover(that);
+					//that.prevEditRow = null;
+					//that.$body.find('> tr').removeClass('editable-select');
+			    },10);
+			};
+		});
     }
     
 })(jQuery);
