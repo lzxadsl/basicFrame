@@ -1,5 +1,6 @@
 /**
  * bootstrap 下拉框插件
+ * API:http://blog.csdn.net/lzxadsl/article/details/48859625
  * @author lizx <851697971@qq.com>
  * @version 1.0
  * @date 2015-09-30
