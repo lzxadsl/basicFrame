@@ -26,7 +26,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			emptyText:'',
     			separator:'_',
     			enabled:true,
-    			multiple:true,
+    			//multiple:true,
+    			filterRemote:{
+    				field:'user_id'
+    			},
     			formatter:function(rec){
     				rec['username'] = rec.username+'_';
     				return rec;
@@ -40,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				$('#order_status2').bootstrapSelect('destroy');
     			},
     			onBeforeLoad:function(params){
-    				params['username'] = 'lzx';
+    				//params['username'] = 'lzx';
     			}
     		});
     		

@@ -83,6 +83,7 @@
 	        multiple : false,//多选
 	        disabled : false,//禁用
 	        downBorder : false,//下拉按钮是否带边框
+	        filterRemote:false,//是否开启远程过滤
 	        cls:'',//自定义样式,多个样式用逗号隔开 class1,class2
 	        formatter:function(rec){},//格式化节点	
 	        onSelect : function(val,rec){},
@@ -322,7 +323,11 @@
     	
     	//添加按键事件
     	$input.unbind('keyup').keyup(function(event){
-    		$this.keyUp(event);
+    		if($this.options.filterRemote){
+    			$this.filterRemote(event);
+    		}else{
+    			$this.keyUp(event);
+    		}
     	});
     	//添加按键事件
     	$input.unbind('keydown').keydown(function(event){
@@ -375,13 +380,58 @@
 				$(this).css('color','#000000');
 			}
 		}).delegate('div', 'click', function(){//单击选择
-			
 			$this.select($(this));
 		});
 		$this.$contentDownList = $div;
 		makeContAndShow($this);
 		
     };
+    
+    /**
+     * 远程过滤
+     */
+    BootstrapSelect.prototype.filterRemote = function(event){
+    	var $this = this;
+    	var functionalKeyArray = $this.functionalKeyArray;
+		//输入框keyup事件
+		var k = event.keyCode;
+		var ctrl = event.ctrlKey;
+		var isFunctionalKey = false;//按下的键是否是功能键
+		for(var i=0;i<functionalKeyArray.length;i++){
+			if(k == functionalKeyArray[i]){
+				isFunctionalKey = true;
+				break;
+			}
+		}
+		var $contentDownList = $this.$contentDownList;
+		//$contentDownList.show();
+		var vals = [];//按删除键删除时，用于存放新值
+		var removeVal = null;//被移除的值
+		//k键值不是功能键或是ctrl+c、ctrl+x时才触发自动补全功能
+		if(!isFunctionalKey && (!ctrl || (ctrl && k == 67) || (ctrl && k == 88)) ){
+			var keyword_ = $.trim($this.$el.val());
+			var keywords = (keyword_ ? keyword_ : '').split($this.options.separator);
+			//获取当前光标所在位置
+			var cursorIndex = $this.getCursorIndex();
+			if(typeof $this.options.filterRemote == 'object' && $this.options.filterRemote.field){
+				$this.options.params[$this.options.filterRemote.field] = keywords[cursorIndex];
+			}else{
+				$this.options.params[$this.options.textField] = keywords[cursorIndex];
+			}
+			$this.reload();
+		}
+		//重新设置隐藏值
+		$this.$el.parent().find('input[type=hidden]').val('');
+		$contentDownList.css('float','');
+		//回车键
+		if(k == 13){
+			if($this.$contentDownList.css('display') != 'none'){
+				$this.hideDownList();
+				event.keyCode = 9;
+			}
+		}
+    };
+    
     /**
      * 选择文本框keyup事件
      */
@@ -491,11 +541,6 @@
 					$nextSibling = $($nextSibling[$nextSibling.length-1]).next();
 				}
 				if($nextSibling.length > 0){//有下一行时（不是最后一行）
-					/*$nextSibling.addClass($this.options.selItemCls);//选中的行加背景
-					//设置选中背景
-					$nextSibling.css('background','none repeat scroll 0 0 '+$this.options.selItemColor);
-					$nextSibling.css('color','#000000');
-					$this.$el.val($nextSibling.html());//选中行内容设置到输入框中*/	
 					$this.select($nextSibling,true);
 					//div滚动到选中的行,jquery-1.6.1 $nextSiblingTr.offset().top 有bug，数值有问题
 					$contentDownList.scrollTop($nextSibling[0].offsetTop - $contentDownList.height() + $nextSibling.height() );
@@ -513,12 +558,7 @@
 				}else{
 					$prevSibling = $($prevSibling[0]).prev();
 				}
-				if($prevSibling.length > 0){//有上一行时（不是第一行）
-					/*$prevSibling.addClass($this.options.selItemCls);//选中的行加背景
-					//设置选中背景
-					$prevSibling.css('background','none repeat scroll 0 0 '+$this.options.selItemColor);
-					$prevSibling.css('color','#000000');
-					$this.val($prevSibling.html());//选中行内容设置到输入框中*/				
+				if($prevSibling.length > 0){//有上一行时（不是第一行）			
 					$this.select($prevSibling,true);
 					//div滚动到选中的行,jquery-1.6.1 $$previousSiblingTr.offset().top 有bug，数值有问题
 					$contentDownList.scrollTop($prevSibling[0].offsetTop - $prevSibling.height() + $prevSibling.height());
@@ -807,9 +847,12 @@
 		$this.find('div').each(function(index,val){
 			$(this).data('jsonData',data_[index]);
 		});
+
 		if(isReload){
-			//重新加载时设置空选项被选择
-			setValues(inputDownList,'');
+			if(!options.filterRemote){
+				//重新加载时设置空选项被选择
+				setValues(inputDownList,'');
+			}
 		}
 		else{
 			//第一次加载时根据value属性设置选中

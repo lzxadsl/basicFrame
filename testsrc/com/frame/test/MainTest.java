@@ -1,6 +1,10 @@
 package com.frame.test;
 
 import java.lang.reflect.Method;
+
+import org.apache.commons.lang3.StringUtils;
+
+
 import com.frame.authority.model.User;
 import com.frame.authority.service.IUserService;
 
@@ -66,5 +70,12 @@ public class MainTest {
 	    System.out.println(pageSql.toString());
 	    String dialect = "Postgresql";
 	    System.out.println(dialect.toUpperCase());
+	    String n = "null";
+	    String n1 = "null";
+	    
+	    System.out.println(StringUtils.equals(n, n1));
+	    System.out.println(StringUtils.equals(n=="null"?null:n,n1=="null"?null:n1));
+	    System.out.println("null".equals(null));
+	    
 	}
 }
