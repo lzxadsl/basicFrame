@@ -209,6 +209,7 @@
     	var $this = this;
     	if($this.options.url){
     		$this.options.onBeforeLoad.call(this,$this.options.params);
+    		console.log($this.options.params);
         	$.ajax({
         		url:$this.options.url,
         		type:$this.options.method,

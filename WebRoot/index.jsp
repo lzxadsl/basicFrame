@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			enabled:true,
     			//multiple:true,
     			filterRemote:{
-    				field:'user_id'
+    				field:'username'
     			},
     			formatter:function(rec){
     				rec['username'] = rec.username+'_';
