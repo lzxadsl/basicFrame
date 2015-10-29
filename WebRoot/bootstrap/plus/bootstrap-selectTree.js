@@ -399,7 +399,17 @@
     BootstrapSelectTree.prototype.select = function(value){
     	this.$el.parent().find('input[type="hidden"]').val(value);
     	this.selText = [];
-    	this.setSelect();
+    	if(this.$contentDownList){
+    		this.setSelect();
+    	}
+    	else{
+    		var int = setInterval(function(){
+				if(this.$contentDownList){
+					clearInterval(int);
+					this.setSelect();
+				}
+			},1000);
+    	}
     };
     
     /**
