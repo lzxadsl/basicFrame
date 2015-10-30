@@ -117,6 +117,7 @@
         if (len === that.options.data.length){
             return;
         }
+        that.data = that.options.data;
         var oldClass = {};//保存被标记修改的样式
         that.$body.find('>tr').each(function(indx){
 			if($(this).hasClass('editable-modify')){

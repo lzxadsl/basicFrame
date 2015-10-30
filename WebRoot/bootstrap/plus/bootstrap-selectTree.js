@@ -53,6 +53,7 @@
 	        separator  : ',',//多选时返回值的分割符
 	        multiple : false,//多选
 	        downBorder : false,//下拉按钮是否带边框
+	        noCheckParent:true,//默认多选时父节点不让选择
 	        cls:'',//自定义样式,多个样式用逗号隔开 class1,class2
 	        setting : {},//属性菜单基本配置信息
 	        formatter:function(rec){},//格式化节点	
@@ -365,13 +366,13 @@
 		var values = value.replace(/\[/g,'').replace(/\]/g,'').split($this.options.separator);
 		$.each(nodes,function(i,node){
 			if(node.isParent){
-				node.nocheck = true;
+				//node.nocheck = true;
 				$this.zTreeObj.expandNode(node,true,true,true);
 			}
-			else if($.inArray(String(node.id),values) != -1){
+			if($.inArray(String(node.id),values) != -1){
 				$this.selText.push(node.name);
     			if($this.options.multiple){//多选
-    				node.checked = true;
+    				node.checked = $this.options.noCheckParent;
     			}else{
     				$('#'+node.tId+'_a').addClass('curSelectedNode');
     				$this.zTreeObj.selectNode(node);
