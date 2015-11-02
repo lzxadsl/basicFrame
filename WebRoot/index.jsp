@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			//data:[{id:1,text:'lzx'},{id:2,text:'lsl'}],
     			//enabled:true,
     			//disabled:true,
-    			multiple:true,
+    			//multiple:true,
     			onSelect:function(rec){
     				//console.log($('#order_status2').bootstrapSelect('getValue'));
     				console.log($('#order_status2').bootstrapSelect('getTextForVal','lzx2'));
@@ -204,6 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			     <select name="status2" style="width:190px;" id="order_status2" class="form-control" value="1">
             	 	<option value=1>lzx1</option>
             	 	<option value=2>lzx2</option>
+            	 	<option value=10>lzx</option>
             	 	<option value=3>lsl</option>
             	 	<option value=4>hello</option>
             	 	<option value=5>she</option>

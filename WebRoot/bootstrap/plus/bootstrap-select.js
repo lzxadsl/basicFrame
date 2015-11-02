@@ -661,6 +661,16 @@
 			$this.$el.css('border-color','#66afe9');
 		}
 		$contentDownList.css('float','left');
+		/**2015-11-02 lizx当下拉框距离底部距离较小时，向上弹窗*/
+		var cdTop = $contentDownList.parent().offset().top - $(document).scrollTop();
+		var winHeight = $(document.body).height();
+		var cdHeight = $contentDownList.height();
+		if((cdTop + cdHeight +10) >= winHeight){
+			$contentDownList.css('margin-top',(-cdHeight + 2)+'px');
+		}
+		else{
+			$contentDownList.css('margin-top','34px');
+		}
 		$contentDownList.show();	
 		$(document).bind('mousedown',function(event){
 			var $target = $(event.target);
