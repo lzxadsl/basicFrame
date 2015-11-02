@@ -29,6 +29,7 @@
 					  img.attr("src",img.attr("abs:src"));
 				  }
 				  String html = item.html();
+				  System.out.println(html);
 				  out.println("<li class=\"item\">" + html + "</li>");
 			}
 

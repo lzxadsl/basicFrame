@@ -71,5 +71,6 @@
 	<classpathentry kind="lib" path="lib/dubbo/netty-3.2.5.Final.jar"/>
 	<classpathentry kind="lib" path="lib/dubbo/zkclient-0.1.jar"/>
 	<classpathentry kind="lib" path="lib/dubbo/zookeeper-3.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/other/jsoup-1.8.3.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
