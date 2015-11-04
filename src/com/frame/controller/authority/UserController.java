@@ -1,4 +1,4 @@
-package com.frame.controller;
+package com.frame.controller.authority;
 
 import java.util.HashMap;
 import java.util.List;

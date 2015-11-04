@@ -4,6 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
     xmlns:p="http://www.springframework.org/schema/p"   
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:util="http://www.springframework.org/schema/util"
     xmlns:mvc="http://www.springframework.org/schema/mvc" 
     xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
@@ -11,6 +12,8 @@
     http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 	http://www.springframework.org/schema/util 
 	http://www.springframework.org/schema/util/spring-util-3.1.xsd
     http://www.springframework.org/schema/mvc
@@ -27,9 +30,11 @@
 	<!-- <dubbo:registry address="zookeeper://127.0.0.1:2181" /> -->
 	<!-- 关闭所有服务的启动时检查：(没有提供者时报错) -->
 	<!-- <dubbo:consumer check="false" /> -->
+	
     <!-- 启用spring mvc 注解-->
     <context:annotation-config/>
-    
+    <!-- 开启spring aop扫描 -->
+    <aop:aspectj-autoproxy />
 	<!-- MVC转换 --> 
     <mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>

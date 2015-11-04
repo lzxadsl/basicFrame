@@ -14,4 +14,8 @@
 			*
  		FROM user  
 	</select> 
+	
+	<select id="get" parameterType="string" resultType="User">
+	    select * from user where user_id = #{id}
+	</select>
 </mapper>	

@@ -27,6 +27,7 @@ public class SysTest {
 	public void test() {
 		PageData page = new PageData();
 		List<User> list = userService.listPage(page);
+		userService.getUser(3);
 		System.out.println(page.getTotalSize());
 		for(User u : list){
 			System.out.println(u.getUsername());
