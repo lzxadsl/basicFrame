@@ -12,7 +12,7 @@
 	<!-- 读取指定位置的db.properties的信息 -->
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:db.properties"></property>
+		<property name="location" value="classpath:config/db.properties"></property>
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"

@@ -18,7 +18,6 @@
 	<classpathentry kind="lib" path="lib/common/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/common/commons-lang-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/common/commons-lang3-3.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/common/commons-pool.jar"/>
 	<classpathentry kind="lib" path="lib/common/ejb3-persistence.jar"/>
 	<classpathentry kind="lib" path="lib/common/javassist-3.17.1-GA.jar"/>
 	<classpathentry kind="lib" path="lib/common/jta.jar"/>
@@ -72,5 +71,18 @@
 	<classpathentry kind="lib" path="lib/dubbo/zkclient-0.1.jar"/>
 	<classpathentry kind="lib" path="lib/dubbo/zookeeper-3.4.5.jar"/>
 	<classpathentry kind="lib" path="lib/other/jsoup-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/mq/activeio-core-3.1.4.jar"/>
+	<classpathentry kind="lib" path="lib/mq/activemq-client-5.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/mq/activemq-core-5.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/mq/activemq-jms-pool-5.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/mq/activemq-pool-5.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/mq/activemq-spring-5.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/mq/geronimo-j2ee-connector_1.5_spec-2.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/mq/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/mq/geronimo-jms_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/mq/hawtbuf-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/mq/spring-jms-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/mq/userAgentUtils.jar"/>
+	<classpathentry kind="lib" path="lib/common/commons-pool-1.6.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
