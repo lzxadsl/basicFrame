@@ -4,6 +4,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
@@ -32,5 +33,10 @@ public class ProducerService implements IProducerService{
                 return session.createTextMessage(message);
             }
         });
+	}
+	
+	public void receiveMessage(Destination destination){
+        TextMessage mess = (TextMessage) jmsTemplate.receive(destination);
+        System.out.println("--------------------------------------------:"+mess);
 	}
 }

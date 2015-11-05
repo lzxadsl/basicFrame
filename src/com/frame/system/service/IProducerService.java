@@ -10,4 +10,5 @@ import javax.jms.Destination;
  */
 public interface IProducerService {
 	public void sendMessage(Destination destination, final String message);
+	public void receiveMessage(Destination destination);
 }

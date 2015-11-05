@@ -50,10 +50,12 @@ public class SysTest {
 	@Autowired
 	Destination destination;
 	@Test
-	public void testmq(){
+	public void testmq() throws InterruptedException{
 		for (int i=0; i<2; i++) {
 			pService.sendMessage(destination, "你好，生产者！这是消息：" + (i+1));
         }
+		Thread.sleep(2000);
+		pService.receiveMessage(destination);
 	}
 
 }
