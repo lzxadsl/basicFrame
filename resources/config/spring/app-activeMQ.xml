@@ -6,14 +6,12 @@
         http://www.springframework.org/schema/context   
         http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	<!-- 读取指定位置的mq.properties的信息 -->
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:config/mq.properties"></property>
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>        
     <!-- 配置connectionFactory -->  
-    <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory"  
-        destroy-method="stop">  
+    <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">  
         <property name="connectionFactory">  
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">  
            		 <property name="brokerURL">
@@ -43,19 +41,15 @@
 	    <constructor-arg value="topic"/>  
    </bean>  -->  
    
-    <!-- Spring JMS Template -->  
-<!--<bean id="jmsTemplate" class="com.hczd.sys.log.util.HZ_MyJmsTemplate">  
-        <property name="connectionFactory" ref="jmsFactory"></property>   
-          <property name="defaultDestination" ref="destination" />  
-           <property name="timeToLive" value="2"/>
-		  <property name="receiveTimeout" value="2"></property>
-    </bean>-->
-    
-	 <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">  
+    <!-- 消息监听器 -->
+    <!-- <bean id="consumerMessageListener" class="com.frame.system.activemq.ConsumerMessageListener"/> --> 
+    <!-- 消息监听容器 -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">  
         <property name="connectionFactory" ref="jmsFactory"></property>  
         <property name="timeToLive" value="180"/>  
         <property name="explicitQosEnabled" value="true"/> 
         <property name="defaultDestination" ref="destination" /> 
         <property name="pubSubDomain" value="true"/>  
+       <!--  <property name="messageListener" ref="consumerMessageListener" /> -->
     </bean>  
 </beans> 

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,6 +40,11 @@ public class UserController {
 		if(StringUtils.isNotEmpty(user.getUsername())){
 			params.put("where","and username like '%"+user.getUsername()+"%'");
 		}
+		User user1 = new User();
+		user1.setUsername("aop2");
+		user1.setSex("男");
+		user1.setNick("admin");
+		userService.saveUser(user1);
 		return userService.list(params);
 	}
 }

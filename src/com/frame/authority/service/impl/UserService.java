@@ -3,6 +3,8 @@ package com.frame.authority.service.impl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.frame.authority.dao.IUserDao;
 import com.frame.authority.model.User;
 import com.frame.authority.service.IUserService;
@@ -31,4 +33,15 @@ public class UserService extends BaseService<User, Integer> implements IUserServ
 		return getDao().get(id);
 	}
 
+	@Override
+	@Transactional
+	public void saveUser(User user) {
+		getDao().insert(user);
+	}
+
+	@Override
+	@Transactional
+	public void updateUser(User user) {
+		getDao().update(user);
+	}
 }

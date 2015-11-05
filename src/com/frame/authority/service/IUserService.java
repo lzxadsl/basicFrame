@@ -12,4 +12,8 @@ import com.frame.basic.service.IBaseService;
 public interface IUserService extends IBaseService<User, Integer>{
 
 	public User getUser(Integer id);
+	
+	public void saveUser(User user);
+	
+	public void updateUser(User user);
 }
