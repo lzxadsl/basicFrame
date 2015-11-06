@@ -63,10 +63,10 @@ public class AopInterceptor {
     @AfterReturning("log()")  
     public void afterReturn(){//被拦截的方法没报错才会执行
         System.out.println("返回后通知");  
-        User user = new User();
+        /*User user = new User();
         user.setUsername("5");
 		user.setUsername("aop2222");
-        userService.update(user);
+        userService.update(user);*/
     } 
     
     @AfterThrowing("log()")  

@@ -131,6 +131,81 @@
 				data : [{"user_email":"20dai.rikon@gmail.com","user_company":"2","user_dates":"2014-10-13 13:35:51","user_lastlogintime":"0","user_version":"0","user_isv2":"0","userstatus_usertype":"0","userstatus_package_id":"100014","userstatus_end_time":"NULL"},{"user_email":"20140416@xxxxddffg.com","user_company":"3","user_dates":"2014-10-13 13:35:51","user_lastlogintime":"0","user_version":"1","user_isv2":"0","userstatus_usertype":"0","userstatus_package_id":"100001","userstatus_end_time":"NULL"},{"user_email":"20083matsumoto-hs@polus.co.jp","user_company":"1","user_dates":"2014-10-31 13:02:47","user_lastlogintime":"1414726074","user_version":"0","user_isv2":"1","userstatus_usertype":"0","userstatus_package_id":"100014","userstatus_end_time":"0"},{"user_email":"20.2.n0.5@gmail.com","user_company":"","user_dates":"2014-11-21 11:00:10","user_lastlogintime":"1416564204","user_version":"0","user_isv2":"0","userstatus_usertype":"0","userstatus_package_id":"100014","userstatus_end_time":"0"}]
 			}); 
 			*/
+			
+			$('#reportTable1').bootstrapTable({
+				method: 'get',
+				clickToSelect: true,
+				url:'user/getUserList.htm',
+				showHeader:false,
+				pagination: true,
+		        pageSize: 10,
+		        pageNumber:1,
+				pageList: [10, 20, 50, 100, 200, 500],
+				sidePagination: 'server',
+			    queryParamsType: 'limit', 
+				responseHandler:function(res){
+					var list = res.rows;
+					var ret = [];
+					var nobj = {colum0:'',colum1:'',colum2:''};
+					$.each(list,function(ind,obj){
+						var ys = (ind+1)%3;
+						nobj['colum'+ys] = JSON.stringify(obj);
+						if(ys == 0){
+							ret.push(nobj);
+							nobj = {colum0:'',colum1:'',colum2:''};
+						}
+						if((ind+1) == res.length){
+							ret.push(nobj);
+						}
+					});
+					return {
+	        			"rows": ret,
+	        			"total": res.total
+	        		};
+				},
+				columns: [
+					{field:"colum0",title:'',align:"center",width:"170px",
+						formatter:function(val,rec){
+							if(!val)return val;
+							var retval = $.parseJSON(val);
+							var html = '<div class="col-sm-12">'
+						   		+'<a href="#" class="thumbnail" style="margin-bottom: 5px;">'
+							    +'<img src="images/lzxadsl.jpg" alt="通用的占位符缩略图">'
+							    +'</a>'
+							    +'<h5>'+retval.username+'</h5>'
+						    +'</div>';
+						    console.log(html);
+						    return html;
+						}
+					},
+					{field:"colum1",title:'',align:"center",width:"170px",
+						formatter:function(val,rec){
+							if(!val)return val;
+							var retval = $.parseJSON(val);
+							var html = '<div class="col-sm-12">'
+						   		+'<a href="#" class="thumbnail" style="margin-bottom: 5px;">'
+							    +'<img src="images/lzxadsl.jpg" alt="通用的占位符缩略图">'
+							    +'</a>'
+							    +'<h5>'+retval.username+'</h5>'
+						    +'</div>';
+						    return html;
+						}
+					},
+					{field:"colum2",title:'',align:"center",width:"170px",
+						formatter:function(val,rec){
+							if(!val)return val;
+							var retval = $.parseJSON(val);
+							var html = '<div class="col-sm-12">'
+						   		+'<a href="#" class="thumbnail" style="margin-bottom: 5px;">'
+							    +'<img src="images/lzxadsl.jpg" alt="通用的占位符缩略图">'
+							    +'</a>'
+							    +'<h5>'+retval.username+'</h5>'
+						    +'</div>';
+						    return html;
+						}
+					}
+				]
+			});
 			$('.form_datetime').datetimepicker({
 				weekStart: 1,
 				todayBtn:  1,
@@ -224,7 +299,14 @@
 	   <div class="tab-pane fade in active" id="tab2">
 	   	  <button type="button" class="btn btn-default" id="addRowbtn">添加行</button>
 	      <table class="table table-striped table-hover" id="reportTable"></table>
-		  <table class="table table-striped table-hover" id="reportTable1"></table>
+		  
+		  <div class="f-s-car">
+				<div class="panel panel-default">
+					<div class="panel-body" style="width:700px;">
+						<table class="table table-striped table-hover" id="reportTable1"></table>
+					</div>
+				</div>
+		  </div>
 	   </div>
 	   
 	   <!--日期控件-->

@@ -40,11 +40,33 @@ public class UserController {
 		if(StringUtils.isNotEmpty(user.getUsername())){
 			params.put("where","and username like '%"+user.getUsername()+"%'");
 		}
-		User user1 = new User();
+
+		/*User user1 = new User();
 		user1.setUsername("aop2");
 		user1.setSex("男");
 		user1.setNick("admin");
-		userService.saveUser(user1);
+		userService.saveUser(user1);*/
 		return userService.list(params);
+	}
+	
+	@RequestMapping(value="getUserList.htm")
+	public @ResponseBody Map<String, Object> getUserList(User user,int limit,int offset){
+		Map<String, Object> params = new HashMap<String, Object>();
+		if(StringUtils.isNotEmpty(user.getUsername())){
+			params.put("where","and username like '%"+user.getUsername()+"%' limit "+limit+" offset "+offset);
+		}
+		else{
+			params.put("where"," limit "+limit+" offset "+offset);
+		}
+		/*User user1 = new User();
+		user1.setUsername("aop2");
+		user1.setSex("男");
+		user1.setNick("admin");
+		userService.saveUser(user1);*/
+		List<User> list = userService.list(params);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("rows",list);
+		map.put("total",16);
+		return map;
 	}
 }

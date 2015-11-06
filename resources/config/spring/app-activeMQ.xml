@@ -29,7 +29,6 @@
     <!-- 发送消息的目的地（一个队列，点对点） -->  
     <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">  
         <!-- 设置消息队列的名字 -->  
-        <!-- 生产环境队列 -->
         <constructor-arg index="0" value="logQueue" />
         <!--测试环境队列-->
         <!--<constructor-arg index="0" value="logQueueTest" />-->
@@ -45,7 +44,7 @@
         <property name="connectionFactory" ref="jmsFactory"></property>  
         <property name="timeToLive" value="180"/>  
         <property name="explicitQosEnabled" value="true"/> 
-        <property name="defaultDestination" ref="destination" /> 
+        <!-- <property name="defaultDestination" ref="destination" />  -->
         <property name="pubSubDomain" value="true"/>  
     </bean> 
     
