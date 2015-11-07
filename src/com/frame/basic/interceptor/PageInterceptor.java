@@ -25,9 +25,9 @@ import com.frame.basic.model.PageData;
 
 /**
  * 分页查询拦截器
- * @author lizhixian
+ * @author LiZhiXian
  * @version 1.0
- * @create_date 2015-9-2 下午5:44:26
+ * @date 2015-9-2 下午5:44:26
  */
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class})})  
 public class PageInterceptor implements Interceptor {
@@ -38,7 +38,7 @@ public class PageInterceptor implements Interceptor {
 	/**
 	 * 匹配mapper.xml中查询id以Page结尾的时候才执行分页
 	 */
-	private String defaultPageSqlId = ".*Page$";
+	private String defaultPageSqlId = ".*PageList$";
 	
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -47,20 +47,19 @@ public class PageInterceptor implements Interceptor {
         while(metaStatementHandler.hasGetter("h")){
         	Object object = metaStatementHandler.getValue("h");  
         	metaStatementHandler = SystemMetaObject.forObject(object);  
-        	System.out.println("h:"+metaStatementHandler);
         }
         // 分离最后一个代理对象的目标类  
    	    while (metaStatementHandler.hasGetter("target")) {  
    	        Object object = metaStatementHandler.getValue("target");  
    	        metaStatementHandler = SystemMetaObject.forObject(object);  
-   	        System.out.println("target:"+metaStatementHandler);
    	    } 
    	    Configuration configuration = (Configuration) metaStatementHandler.  
    	    		 getValue("delegate.configuration"); 
    	    //configuration.getVariables()获取的是mybatis-config.xml中properties下的属性
-   	    dialect = configuration.getVariables() == null? "" : configuration.getVariables().getProperty("dialect");  
+   	 
+   	    dialect = configuration.getVariables() == null ? "" : configuration.getVariables().getProperty("dialect");  
 	    if (null == dialect || "".equals(dialect)) {  
-	        dialect = defaultDialect;  
+	        dialect = configuration.getDatabaseId() == null ? defaultDialect : configuration.getDatabaseId();  
 	    }
 	    pageSqlId = configuration.getVariables() == null ? "" : configuration.getVariables().getProperty("pageSqlId");  
 	    if (null == pageSqlId || "".equals(pageSqlId)) {  
@@ -70,7 +69,7 @@ public class PageInterceptor implements Interceptor {
 	    metaStatementHandler.getValue("delegate.mappedStatement");  
 	    // 只重写需要分页的sql语句。通过MappedStatement的ID匹配，默认重写以Page结尾的  
 	    //  MappedStatement的sql  
-	    if (mappedStatement.getId().matches(pageSqlId)) {  
+	    if (mappedStatement.getId().matches(pageSqlId)){  
 	        BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");  
 	        Object parameterObject = boundSql.getParameterObject();  
 	        if (parameterObject == null) {  
@@ -84,8 +83,7 @@ public class PageInterceptor implements Interceptor {
 	            String pageSql = buildPageSql(sql, page);  
 	            metaStatementHandler.setValue("delegate.boundSql.sql", pageSql);  
 	            // 采用物理分页后，就不需要mybatis的内存分页了，所以重置下面的两个参数  
-	            metaStatementHandler.setValue("delegate.rowBounds.offset",   
-	            RowBounds.NO_ROW_OFFSET);  
+	            metaStatementHandler.setValue("delegate.rowBounds.offset",RowBounds.NO_ROW_OFFSET);  
 	            metaStatementHandler.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);  
 	            Connection connection = (Connection) invocation.getArgs()[0];  
 	            // 重设分页参数里的总页数等  
@@ -101,9 +99,9 @@ public class PageInterceptor implements Interceptor {
 	        StringBuilder pageSql = new StringBuilder();  
 	        if ("POSTGRESQL".equals(dialect.toUpperCase())) {  
 	            pageSql = buildPageSqlForPostgreSQL(sql, page);  
-	        } else if ("ORACLE".equals(dialect)) {  
+	        } else if ("ORACLE".equals(dialect.toUpperCase())) {  
 	            //pageSql = buildPageSqlForOracle(sql, page);  
-	        } else if("MYSQL".equals(dialect)){
+	        } else if("MYSQL".equals(dialect.toUpperCase())){
 	        	pageSql = buildPageSqlForMySQL(sql, page);  
 	        }
 	        else {  
@@ -117,17 +115,15 @@ public class PageInterceptor implements Interceptor {
 	
 	public StringBuilder buildPageSqlForPostgreSQL(String sql, PageData page) {  
 	    StringBuilder pageSql = new StringBuilder(100);  
-	    String beginrow = String.valueOf((page.getCurrentPage() - 1) * page.getPageSize());  
 	    pageSql.append(sql);  
-	    pageSql.append(" limit " + page.getPageSize() + " offset " + beginrow);  
+	    pageSql.append(" limit " + page.getPageSize() + " offset " + page.getStartRow());  
 	    return pageSql;  
 	}
 	
 	public StringBuilder buildPageSqlForMySQL(String sql, PageData page) {  
-	    StringBuilder pageSql = new StringBuilder(100);  
-	    String beginrow = String.valueOf((page.getCurrentPage() - 1) * page.getPageSize());  
+	    StringBuilder pageSql = new StringBuilder(100);
 	    pageSql.append(sql);  
-	    pageSql.append(" limit " + beginrow + "," + page.getPageSize());  
+	    pageSql.append(" limit " + page.getStartRow() + "," + page.getPageSize());  
 	    return pageSql;  
 	}
 	

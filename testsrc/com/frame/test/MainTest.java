@@ -76,6 +76,6 @@ public class MainTest {
 	    System.out.println(StringUtils.equals(n, n1));
 	    System.out.println(StringUtils.equals(n=="null"?null:n,n1=="null"?null:n1));
 	    System.out.println("null".equals(null));
-	    
+	    System.out.println("1".toUpperCase());
 	}
 }

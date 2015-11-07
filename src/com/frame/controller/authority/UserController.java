@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.frame.authority.model.User;
 import com.frame.authority.service.IUserService;
+import com.frame.basic.model.PageData;
 
 /**
  * 
@@ -50,23 +51,21 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="getUserList.htm")
-	public @ResponseBody Map<String, Object> getUserList(User user,int limit,int offset){
+	public @ResponseBody Map<String, Object> getUserList(User user,PageData pageData){
 		Map<String, Object> params = new HashMap<String, Object>();
 		if(StringUtils.isNotEmpty(user.getUsername())){
-			params.put("where","and username like '%"+user.getUsername()+"%' limit "+limit+" offset "+offset);
+			params.put("where","and username like '%"+user.getUsername()+"%' ");
 		}
-		else{
-			params.put("where"," limit "+limit+" offset "+offset);
-		}
+		
 		/*User user1 = new User();
 		user1.setUsername("aop2");
 		user1.setSex("男");
 		user1.setNick("admin");
 		userService.saveUser(user1);*/
-		List<User> list = userService.list(params);
+		List<User> list = userService.listPage(params, pageData);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("rows",list);
-		map.put("total",16);
+		map.put("total",pageData.getTotalSize());
 		return map;
 	}
 }

@@ -1,18 +1,13 @@
 package com.frame.test;
 
-import java.util.List;
-
 import javax.jms.Destination;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import com.frame.authority.model.User;
 import com.frame.authority.service.IUserService;
-import com.frame.basic.model.PageData;
 import com.frame.system.service.IProducerService;
 
 

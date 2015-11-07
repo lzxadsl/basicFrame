@@ -83,27 +83,27 @@ public class BaseService<T,K> extends SqlSessionTemplate implements IBaseService
 	@Override
 	public List<T> list() {
 		Map<String, Object> params = new HashMap<String, Object>();
-		return getDao().select(params);
+		return getDao().selectList(params);
 	}
 
 	@Override
 	public List<T> list(Map<String, Object> params) {
 		if(params == null)params = new HashMap<String, Object>();
-		return getDao().select(params);
+		return getDao().selectList(params);
 	}
 
 	@Override
 	public List<T> listPage(PageData pageData) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pageData", pageData);
-		return getDao().selectPage(params);
+		return getDao().selectPageList(params);
 	}
 
 	@Override
 	public List<T> listPage(Map<String, Object> params,PageData pageData) {
 		if(params == null)params = new HashMap<String, Object>();
 		params.put("pageData", pageData);
-		return getDao().selectPage(params);
+		return getDao().selectPageList(params);
 	}
 
 	

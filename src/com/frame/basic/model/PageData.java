@@ -1,59 +1,36 @@
 package com.frame.basic.model;
 
 /**分页数据辅助
- * @author linjian 
+ * @author LiZhiXian 
  * @version 2.0
- * @create_date 2013-5-22 上午9:52:01
+ * @date 2013-5-22 上午9:52:01
  */
 public class PageData {
-	private int totalSize;
-	private int pageSize;
-	private int currentPage;
+	private int totalSize = 0;
 	private int totalPage = 0;
-	private int page;
-	private int rows;
-	
+	private int page;//easyui（extjs） 当前页 
+	private int rows;//easyui 每页显示条数
+	private int limit;//bootstrap（extjs） 每页显示条数
+	private int offset;//bootstrap 开始位置
+	private int pageSize;//每页显示条数
+	private int startRow;//开始行
 	/**
 	 * 构造方法，默认每页为10条记录，显示页为第一页
-	 * @author linjian
-	 * @create_date 2013-5-22 上午9:51:36
+	 * 由于不同ui传进来的分页参数属性不一致，最终都将转换成 pageSize 和 startRow 进行计算
+	 * @author LiZhiXian
+	 * @date 2013-5-22 上午9:51:36
 	 */
 	public PageData(){
-		pageSize = 15;
-		currentPage = 1;
+		pageSize = 10;
+		startRow = 0;
 	}
-	public int getTotalPage() {
-		if(pageSize != 0){
-			if(totalSize % pageSize != 0){
-				totalPage = totalSize / pageSize + 1;
-			}else
-				totalPage = totalSize /pageSize;
-		}
+	
+	public int getTotalPage(){
 		return totalPage;
 	}
 
 	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;
-	}
-
-	public int getPageSize() {
-		if(pageSize == 0)
-			pageSize = 10;
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public int getCurrentPage() {
-		if(currentPage == 0)
-			currentPage = 1;
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
 	}
 
 	public int getTotalSize() {
@@ -67,8 +44,8 @@ public class PageData {
 		return page;
 	}
 	public void setPage(int page) {
+		this.startRow = (page - 1) * rows;
 		this.page = page;
-		this.currentPage = page;
 	}
 	public int getRows() {
 		return rows;
@@ -77,4 +54,35 @@ public class PageData {
 		this.pageSize = rows;
 		this.rows = rows;
 	}
+	public int getLimit() {
+		return limit;
+	}
+	public void setLimit(int limit) {
+		this.pageSize = limit;
+		this.limit = limit;
+	}
+	public int getOffset() {
+		return offset;
+	}
+	public void setOffset(int offset) {
+		this.startRow = offset;
+		this.offset = offset;
+	}
+
+	public int getPageSize() {
+		return pageSize < 0 ? 0 : pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getStartRow() {
+		return startRow < 0 ? 0 : startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	
 }

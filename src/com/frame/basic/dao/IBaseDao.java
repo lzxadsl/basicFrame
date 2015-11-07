@@ -19,6 +19,6 @@ public interface IBaseDao<T,K> {
 	public void update(T entity);
 	public T get(K id);
 	public T get(Map<String, Object> params);
-	public List<T> select(Map<String, Object> params);
-	public List<T> selectPage(Map<String, Object> params);
+	public List<T> selectList(Map<String, Object> params);
+	public List<T> selectPageList(Map<String, Object> params);
 }
