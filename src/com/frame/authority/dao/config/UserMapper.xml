@@ -28,11 +28,15 @@
 		where user_id = #{user_id}
 	</update>
 	
-	<insert id="insert" parameterType="User">
+	<insert id="insert" parameterType="User" keyProperty="user_id">
 	    insert into user(
 	    	username,password,nick,sex
 	    )  values(
 	    	#{username},#{password},#{nick},#{sex}
 	    )
+	    
+		<selectKey keyProperty="user_id" resultType="String" order="AFTER">  
+	        select max(user_id) from user
+	    </selectKey> 
 	</insert>
 </mapper>	

@@ -61,7 +61,8 @@ public class UserController {
 		user1.setUsername("aop2");
 		user1.setSex("男");
 		user1.setNick("admin");
-		userService.saveUser(user1);*/
+		userService.saveUser(user1);
+		System.out.println(user1);*/
 		List<User> list = userService.listPage(params, pageData);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("rows",list);
