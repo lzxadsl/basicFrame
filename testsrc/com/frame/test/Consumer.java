@@ -17,7 +17,8 @@ public class Consumer {
 		System.in.read();
 	}
 	public static void main(String[] args) throws Exception {
-		new Consumer().test();
+		//new Consumer().test();
+		Class.forName("com.frame.test.ClassCreate");//将类加载到内存(静态方法在加载到内存时就会执行)
 	}
 
 }
