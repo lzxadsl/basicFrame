@@ -45,3 +45,13 @@ for(var i = 0; i < common_js_files.length; i++){
 	document.write("<script type='text/javascript' src='"+common_js_files[i]+"'></script>");
 }
 
+/**防止按删除键时返回上个页面*/
+document.onkeydown = backSpaceDown;
+function backSpaceDown(e){
+	if(((event.keyCode == 8) && ((event.srcElement.type != "text" && event.srcElement.type != "textarea" && event.srcElement.type != "password")||
+	event.srcElement.readOnly == true))||((event.ctrlKey) && ((event.keyCode == 78) || (event.keyCode == 82))) || (event.keyCode == 116)) {
+		event.keyCode = 0;
+		event.returnValue = false;
+	}
+	return true;
+}

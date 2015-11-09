@@ -141,30 +141,28 @@
         <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
     <!--********************* spring 3.2 配置end ******************-->
+
     <!--********************* mq配置 ******************************-->
     <!-- <context-param>
         <param-name>org.apache.activemq.brokerURL</param-name>
         <param-value>failover://(tcp://127.0.0.1:61616)?randomize=false</param-value>
         <description>The URL of the Message Broker to connect to</description>
     </context-param>
-    不需要启用一个嵌入式代理
     <context-param>
         <param-name>org.apache.activemq.embeddedBroker</param-name>
         <param-value>true</param-value>
         <description>Whether we should include an embedded broker or not</description>
     </context-param>
-    filters
+    
 	<filter>
 		<filter-name>session</filter-name>
 		<filter-class>org.apache.activemq.web.SessionFilter</filter-class>
-		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>session</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	listener
 	<listener>
 		<listener-class>org.apache.activemq.web.SessionListener</listener-class>
 	</listener>

@@ -27,7 +27,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	amq.init({ 
 	           uri: 'amq', 
 	           logging: true, 
-	           timeout: 1, 
+	           async:false,
+	           timeout: 10, 
 	           clientId:(new Date()).getTime().toString()//clientId是为了在一个浏览器的多个页面中使用ActiveMQ Ajax. 
 	        });
 	        var msg = "<msg type='common'>" 
@@ -35,14 +36,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	              +  "<content>This is test content</content>"
 	              + "</msg>";
             $("#send").click(function(){
-          	  console.log('wbdj');
-		      amq.sendMessage("topic://logQueue", msg);
+            	$.post('user/sendMsg.htm',{},function(data,status){
+					
+				}); 
+		        //amq.sendMessage("topic://logQueue", msg);
+		        amq.addListener("listen","topic://logQueue",function(message){
+		      	  console.log(message);
+		        });
 		    });
 	    });
     </script>
   </head>
   
   <body>
+  	
 	<button class="btn btn-default" id="send">提交</button>
+	<span id="listen">
+	
+	</span>
   </body>
 </html>

@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		
     	});
     	function mainFun(arg){
-    		alert('我被'+arg+'调用了');
+    		//alert('我被'+arg+'调用了');
     	}
     </script>
   </head>
