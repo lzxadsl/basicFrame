@@ -246,6 +246,10 @@
     	//获取元素宽、高
     	var width = $input.outerWidth() - 1;
     	var height = $input.outerHeight();
+    	var browserV = getBrowserMsg();
+    	if(browserV.ie != undefined && parseFloat(getBrowserMsg().ie) > 8){
+    		height = $input.height();
+    	}
     	var name = $input.attr('name')?$input.attr('name'):'';//name属性
     	$input.removeAttr('name');//删除name属性，最终把name属性移到隐藏域上
     	$input.wrap('<span style="height:'+height+'px;display:block;overflow:hidden;width:'+width+'px;"></span>');
@@ -874,4 +878,19 @@
 			setValues(inputDownList,$input.attr('value'));
 		}
 	}	
+    
+    function getBrowserMsg(){
+        /**
+         * 获取浏览器类型
+         */
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var s;
+        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+            (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+                (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+                    (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+                        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+        return Sys;
+      }
 })(jQuery);

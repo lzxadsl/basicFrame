@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			emptyText:'',
     			separator:'_',
     			enabled:true,
+    			downBorder:true,
     			//multiple:true,
     			filterRemote:{
     				field:'username'
