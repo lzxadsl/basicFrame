@@ -18,11 +18,9 @@ public class Account {
 	private Date time;
 	private String name;
 	private boolean statue;
+	private int age;
 	
-	private static final Account acco = new Account();
-	public static Account getAccount(){
-		return acco;
-	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -58,6 +56,12 @@ public class Account {
 	}
 	public void setStatue(boolean statue) {
 		this.statue = statue;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
 }

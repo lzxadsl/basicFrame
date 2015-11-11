@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.solr.common.util.Hash;
 
+import com.alibaba.fastjson.JSONObject;
 import com.frame.basic.utils.GsonUtils;
 
 /**
@@ -17,9 +18,14 @@ import com.frame.basic.utils.GsonUtils;
 public class JsonTest {
 
 	public static void json2Obj(){
-		String json = "{\"id\":\"0\",\"moner\":\"0\",\"time\":null,\"act_no\":\"1\",\"name\":\"\",\"statue\":\"\"}";
-		Account account = GsonUtils.fromJson(json,Account.class);
+		String json = "{\"id\":\"\",\"moner\":\"\",\"time\":\"\",\"act_no\":\"1\",\"name\":\"\",\"statue\":\"\",\"age\":null}";
+		/*Account account = GsonUtils.fromJson(json,Account.class);
 		System.out.println(account);
+		Account acc =  new Account();
+		System.out.println(GsonUtils.toJson(acc));*/
+		
+		Account account1 = JSONObject.parseObject(json, Account.class);
+		System.out.println(account1);
 	}
 	
 	public static void main(String[] args) {
@@ -31,7 +37,7 @@ public class JsonTest {
 		System.out.println(i == i2);//true
 		System.out.println(i == i3);//true
 		System.out.println(i2 == i3);//false
-		System.out.println(Account.getAccount().hashCode());
+		//System.out.println(Account.getAccount().hashCode());
 		System.out.println(new Account().hashCode());
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(i);

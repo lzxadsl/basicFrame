@@ -79,7 +79,8 @@
 	        emptyText  : null,//空选项文本，该属性为null或undefined时不创建空选项，默认不创建
 	        emptyValue : '',//空选项值
 	        separator  : ',',//多选时返回值的分割符
-	        editable	 : true,//是否可编辑
+	        editable   : true,//是否可编辑
+	        cleanText: true,//可编辑状态下，如果输入不存在的值，文本框失去焦点时是否也清空该值
 	        multiple : false,//多选
 	        disabled : false,//禁用
 	        downBorder : false,//下拉按钮是否带边框
@@ -319,6 +320,10 @@
     	//文本框失去焦点
     	$input.unbind('blur').blur(function(){
     		//$this.hideDownList();
+    		if($this.options.cleanText && $this.options.editable && !$input.parent().find('input[type="hidden"]').val()){
+    			$input.val('');
+    			$this.options.onSelect.call(this,'',{});
+    		}
 		});
     	
     	//添加按键事件
