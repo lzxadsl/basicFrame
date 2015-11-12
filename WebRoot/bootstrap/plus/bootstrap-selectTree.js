@@ -133,6 +133,10 @@
     	//获取元素宽、高
     	var width = $input.outerWidth() - 2;
     	var height = $input.outerHeight();
+    	var browserV = getBrowserMsg();
+    	if(browserV.ie != undefined && parseFloat(getBrowserMsg().ie) > 8){
+    		height = $input.height();
+    	}
     	var name = $input.attr('name')?$input.attr('name'):'';//name属性
     	$input.removeAttr('name');//删除name属性，最终把name属性移到隐藏域上
     	$input.wrap('<span style="height:'+height+'px;display:block;overflow:hidden;width:'+width+'px;"></span>');
@@ -140,7 +144,7 @@
     	//$input.css('display','inline-block');//20151012 去掉该属性
     	$input.css('float','left');//20151012 增加该属性
     	$input.attr('autocomplete','off');
-    	$input.attr('type','text');
+    	$input.prop('type','text');
     	
     	if(!$input.attr('placeholder')){
     		$input.attr('placeholder','请选择');
@@ -705,5 +709,18 @@
 		$this.lastSelText = inputText;
 		$input.val(inputText.join(options.separator));//文本框设置文本
 	}
-	
+	function getBrowserMsg(){
+        /**
+         * 获取浏览器类型
+         */
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var s;
+        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+            (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+                (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+                    (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+                        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+        return Sys;
+    }
 })(jQuery);
