@@ -1,6 +1,7 @@
 package com.frame.test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,5 +43,10 @@ public class JsonTest {
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(i);
 		System.out.println(list.get(0));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", "lzx");
+		map.put("sex", "nan");
+		System.out.println(map.keySet());
+		System.out.println("cebucdefg".compareTo("ceb"));
 	}
 }

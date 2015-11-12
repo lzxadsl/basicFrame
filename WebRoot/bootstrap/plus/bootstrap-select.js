@@ -427,10 +427,11 @@
 				$this.options.params[$this.options.textField] = keywords[cursorIndex];
 			}
 			$this.reload();
+			//重新设置隐藏值
+			$this.$el.parent().find('input[type=hidden]').val('');
+			$contentDownList.css('float','');
 		}
-		//重新设置隐藏值
-		$this.$el.parent().find('input[type=hidden]').val('');
-		$contentDownList.css('float','');
+		
 		//回车键
 		if(k == 13){
 			if($this.$contentDownList.css('display') != 'none'){
@@ -462,7 +463,7 @@
 		if(!isFunctionalKey && (!ctrl || (ctrl && k == 67) || (ctrl && k == 88)) ){
 			var keyword_ = $.trim($this.$el.val());
 			if(keyword_ == null || keyword_ == ''){
-				//为空时显示所以节点,并移除选择属性
+				//为空时显示所有节点,并移除选择属性
 				$contentDownList.find('div').css('display','block')
 											.css('background','')
 											.css('color','#000000')
