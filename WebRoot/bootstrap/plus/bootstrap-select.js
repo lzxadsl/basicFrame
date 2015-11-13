@@ -363,7 +363,7 @@
     		+'width:'+(width+20)+'px;'
     		+'margin-top:'+height+'px;'//20151012 增加该属性
     		+'max-height: 220px;'
-    		+'overflow-x: hidden;'
+    		+'overflow-x: auto;'
     		+'overflow-y: auto;';
 
     	$('<div style="'+style+'"></div>').appendTo($this.$el.parent());

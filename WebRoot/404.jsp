@@ -1,32 +1,32 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gbk"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
   <head>
     <base href="<%=basePath%>">
-    
-    <title>��Ӫ����ϵͳ����ҳ��</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="���Ű���Ѷ,Sapphire,վȺ����ϵͳ,��վȺ">
-	<meta http-equiv="description" content="���Ű���Ѷ��רҵ�ĵ��������ṩ�̣�Ϊ�������Ż���վ�ṩȫ��Ľ������">
-	<link type="image/vnd.microsoft.icon" rel="shortcut icon" href="images/favicon.ico">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">123
-	-->
+    <meta charset="utf-8">
+    <!--支持 浏览器内核 webkit、ie-comp IE兼容、ie-stand IE标准 -->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <!--开启IE兼容模式  -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!--移动设备支持， width=device-width 自适应宽度,initial-scale=1.0 初始缩放比例为1:1,user-scalable 用户是否可以手动缩放-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <title>系统出错页面</title>
+    <link type="image/vnd.microsoft.icon" rel="shortcut icon" href="images/favicon.ico">
   </head>
   
-  <body onload="floatAD()">
-  <div style="height: 300px; width: 300px;" >
-   <div id="fly" style="position: absolute;left: 16px; top: 200px;">
-   <img  src="<%=path%>/images/404.png">ϵͳ������δ֪��������ϵ��ؼ�����Ա��
-   </div>
-   </div>
+  <body>
+  	<div style="height: 300px; width: 300px;" >
+	   	<div id="fly" style="position: absolute;left: 16px; top: 200px;">
+	   		<img  src="images/404.png">
+	   		系统出现了未知错误，请联系相关技术人员！
+	   	</div>
+   	</div>
   </body>
 </html>

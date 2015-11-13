@@ -269,7 +269,7 @@
 			return ;
 		}
 		$td.data('field',tdOpt.field);
-		if($td.data('oldVal') == undefined && $td.data('oldVal') == null){
+		if($td.data('oldVal') == undefined || $td.data('oldVal') == null){
 			$td.data('oldVal',$.trim(rowData[tdOpt.field]));
 		}
 		var height = $td.innerHeight() - 3;
@@ -343,8 +343,10 @@
 				}
 				
 				if(textVal != undefined){
-					if($(this).data('oldVal') != (hiddenVal?hiddenVal:$.trim(textVal)) && $(this).data('field')) {
+					if($(this).data('field')) {
 						that.data[that.prevEditRow.data('index')][$(this).data('field')] = hiddenVal?hiddenVal:$.trim(textVal);
+					}
+					if($(this).data('oldVal') != (hiddenVal?hiddenVal:$.trim(textVal))) {
 						isModi = true;
 					}
 					if(that.columns['column'+i].edit.required == true){

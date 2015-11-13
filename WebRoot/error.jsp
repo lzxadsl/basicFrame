@@ -16,10 +16,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--移动设备支持， width=device-width 自适应宽度,initial-scale=1.0 初始缩放比例为1:1,user-scalable 用户是否可以手动缩放-->
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-transform"/>
+    <title>系统出错页面</title>
+    <link type="image/vnd.microsoft.icon" rel="shortcut icon" href="images/favicon.ico">
     <script type="text/javascript" src="js/import.inc.js"></script>
   </head>
   
   <body>
-	
+	${error}
   </body>
 </html>

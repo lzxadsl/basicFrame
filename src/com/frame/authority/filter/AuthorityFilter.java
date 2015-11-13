@@ -1,13 +1,7 @@
 package com.frame.authority.filter;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -17,9 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import com.frame.system.constant.WhiteListConstant;
 
 /**
  * 访问拦截
@@ -37,6 +31,7 @@ public class AuthorityFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		HttpServletResponse httpResponse = (HttpServletResponse)response;
 		HttpSession session = httpRequest.getSession();
@@ -49,22 +44,14 @@ public class AuthorityFilter implements Filter{
 		if(StringUtils.isNotBlank(result)){
 			//参数非法，统一提示
 			request.setAttribute("error",result);
-			httpResponse.sendRedirect("error.jsp");
+			//httpResponse.sendRedirect("500.jsp");
+			request.getRequestDispatcher("500.jsp").forward(request,response);
 			return;
 		}
-		
-		Principal principal = httpRequest.getUserPrincipal();
-		if(httpRequest.getServletPath().contains("loginPage.htm") || 
-				httpRequest.getServletPath().contains("login.htm") || 
-				httpRequest.getServletPath().contains("cas_login.htm")){
-			//已经登陆直接进首页
-			if(principal != null && !httpRequest.getServletPath().contains("cas_login.htm")){
-				request.getRequestDispatcher("/cas_login.htm").forward(request,response);
-				return;
-			}else {	
-				chain.doFilter(request, response);
-				return;	
-			}	
+		//判断是否在白名单中
+		if(WhiteListConstant.getInstance().isExist(httpRequest.getServletPath())){
+			chain.doFilter(request, response);
+			return;
 		}
 		else if(object == null){
 			boolean isAjax = isAjaxRequest(httpRequest);
@@ -72,7 +59,7 @@ public class AuthorityFilter implements Filter{
 				httpResponse.setCharacterEncoding("UTF-8");
 				httpResponse.sendError(HttpStatus.UNAUTHORIZED.value(),"您已经太长时间没有操作，清刷新页面！");
 			}
-			httpResponse.sendRedirect("/smvc/loginPage.htm");
+			httpResponse.sendRedirect("/basic.htm?page=login");
 			return;
 		}
 		chain.doFilter(request, response);
@@ -108,7 +95,7 @@ public class AuthorityFilter implements Filter{
             if (paramValues.length == 1) {  
                 String paramValue = paramValues[0];
                 if (paramValue.length() != 0 && !isValid(paramValue.toLowerCase())) {  
-                	flag = "参数非法";
+                	flag = "参数【"+paramName+"】的值是非法的";
                 	System.out.println(paramName+"===xx==="+paramValue);
                 	break;
                 }  
@@ -121,7 +108,7 @@ public class AuthorityFilter implements Filter{
 	 * 参数校验 
 	 * @param str 
 	 */  
-	public static boolean isValid(String p) {  
+	public static boolean isValid(String p){  
 		if(p.indexOf("'") >= 0){
 			if(p.indexOf("delete") >= 0 || p.indexOf("ASCII") >= 0  
 			        || p.indexOf("update") >= 0 || p.indexOf("select") >= 0 || p.indexOf("substr(") >= 0  
@@ -140,45 +127,4 @@ public class AuthorityFilter implements Filter{
 	    return true;  
 	}
 	
-	/**
-	 * 判断是否重复提交
-	 * @author lzx
-	 * @param token
-	 * @param session
-	 * @return 判断结果
-	 */
-	public boolean putToken(String token,HttpSession session){
-		//清除掉半个小时之前的token
-		Object hz_token = session.getAttribute("hz_token");
-		Map<String, String> t_maps = new HashMap<String, String>();
-		/***
-		 * 清除半个小时之前的token
-		 */
-		Calendar cl = Calendar.getInstance();
-		cl.setTime(new Date());
-		cl.add(Calendar.MINUTE, -30);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		String datestr = sdf.format(cl.getTime());
-		if(hz_token != null){
-			@SuppressWarnings("unchecked")
-			Map<String, String> t_m = (Map<String, String>)hz_token;
-			for (String key : t_m.keySet()) {
-				if(datestr.compareTo(t_m.get(key)) <= 0){
-					t_maps.put(key, t_m.get(key));
-				}
-			}
-		}
-		/***
-		 * 判断是否重复提交token
-		 */
-		boolean rs = false;
-		if(t_maps.keySet().contains(token)){
-			rs = true;
-		}else{
-			t_maps.put(token,sdf.format(new Date()));
-		}
-		session.setAttribute("hz_token", t_maps);
-		return rs;
-	}
-
 }
