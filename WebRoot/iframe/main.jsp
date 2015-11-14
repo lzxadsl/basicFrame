@@ -55,7 +55,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 	<h1>IFRAME测试</h1>
 	<button id="btn">却换</button>
-	<iframe width="1024px" height="400px" src="iframe/iframe1.jsp" id="ifr" frameborder="0"></iframe>
+	<input type="text"/>
+	<iframe width="1024px" height="400px" src="iframe/iframe1.jsp" id="ifr" frameborder="0" name="iframe"></iframe>
 	<jsp:include page="./iframe3.jsp"></jsp:include>
+	<form action="login.htm" target="iframe">
+		<input type="text" name="username"/>
+		<button id="btn" type="submit">提交</button>
+	</form>
+	<a href="login.htm" target="iframe">跳转</a>
   </body>
 </html>

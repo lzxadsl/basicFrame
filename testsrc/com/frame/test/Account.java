@@ -19,8 +19,21 @@ public class Account {
 	private String name;
 	private boolean statue;
 	private int age;
+	private Float f;
+	private Long act;
 	
-	
+	public Long getAct() {
+		return act;
+	}
+	public void setAct(Long act) {
+		this.act = act;
+	}
+	public Float getF() {
+		return f;
+	}
+	public void setF(Float f) {
+		this.f = f;
+	}
 	public Integer getId() {
 		return id;
 	}

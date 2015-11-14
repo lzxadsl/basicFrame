@@ -1,6 +1,7 @@
 package com.frame.controller.authority;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/*")
 public class LoginController {
 
-	public String login(){
-		return "";
+	@RequestMapping(value="login.htm")
+	public String login(String username,ModelMap map){
+		map.addAttribute("msg","你好啊! "+username);
+		return "/basic/iframe1";
 	}
 }

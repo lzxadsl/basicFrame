@@ -23,7 +23,7 @@ public class ForwordController {
      * @param page /WEB-INF/views/basic/ 下页面的名称（不需要.jsp后缀）
      * @return
      */
-    @RequestMapping(value = "/forword.htm")
+    @RequestMapping(value = "forword.htm")
     public ModelAndView basic(ModelAndView model,HttpServletRequest request){
     	String page = "";
     	Enumeration<?> paramNames = request.getParameterNames();

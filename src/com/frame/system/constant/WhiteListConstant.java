@@ -1,7 +1,11 @@
 package com.frame.system.constant;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * 白名单全局常量
@@ -42,11 +46,27 @@ public class WhiteListConstant {
 		return whiteList;
 	}
 	/**
-	 * 设置白名单列表
+	 * 设置白名单列表（预留）
 	 */
 	public void setWhiteList(List<String> whiteList) {
 		if(this.whiteList.size() < 1){
 			this.whiteList = whiteList;
+		}
+	}
+	/**
+	 * 初始化白名单列表
+	 */
+	public void initWhiteList(){
+		try {
+			Properties prop = new Properties();
+			InputStream in = this.getClass().getResourceAsStream("/power.properties");
+			prop.load(in);
+			String strList = prop.get("whiteList") == null ? "" : String.valueOf(prop.get("whiteList"));
+			List<String> wList = Arrays.asList(strList.split(";"));
+			this.whiteList = wList;
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

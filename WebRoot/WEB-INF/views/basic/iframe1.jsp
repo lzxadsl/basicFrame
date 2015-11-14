@@ -18,13 +18,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-transform"/>
     <script type="text/javascript" src="js/import.inc.js"></script>
-    <script type="text/javascript" src="iframe/iframe.js"></script>
     <script type="text/javascript">
     	$(function(){
     		console.log($('#ifr',parent.document).attr('src'));
-    		$.fn.ifra = function(){
-    			alert('ddd');
-    		};
     		parent.mainFun('iframe1');
     		$('#req').on('click',function(){
     			$.delCookie('lzx');
