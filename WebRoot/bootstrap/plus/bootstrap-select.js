@@ -250,6 +250,9 @@
     	if(browserV.ie != undefined && parseFloat(getBrowserMsg().ie) > 8){
     		height = $input.height();
     	}
+    	if(browserV.ie != undefined){
+    		options.emptyText = '--请选择--';
+    	}
     	var name = $input.attr('name')?$input.attr('name'):'';//name属性
     	$input.removeAttr('name');//删除name属性，最终把name属性移到隐藏域上
     	$input.wrap('<span style="height:'+height+'px;display:block;overflow:hidden;width:'+width+'px;"></span>');
@@ -641,7 +644,7 @@
 	};
 	/**
      * 显示下拉列表
-     * @param showMatch 为true时，显示模糊匹配，默认显示所以节点
+     * @param showMatch 为true时，显示模糊匹配，默认显示所有节点
      */
 	BootstrapSelect.prototype.showDownList = function(showMatch){
 		var $this = this;
@@ -709,8 +712,15 @@
 				unSelect = true;
 			}
 			else{
-				$selItem.addClass($this.options.selItemCls);
-				$selItem.css({'background':'none repeat scroll 0 0 '+$this.options.selItemColor},{'color':'#FFFFFF'});
+				if($selItem.html() == $this.options.emptyText){
+					$this.$contentDownList.find('div').removeClass($this.options.selItemCls); 
+					$this.$contentDownList.find('div').css('background','');
+					$this.hideDownList();
+				}
+				else{
+					$selItem.addClass($this.options.selItemCls);
+					$selItem.css({'background':'none repeat scroll 0 0 '+$this.options.selItemColor},{'color':'#FFFFFF'});
+				}
 			}
 		}
 		else{
