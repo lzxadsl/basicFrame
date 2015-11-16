@@ -250,7 +250,7 @@
     	if(browserV.ie != undefined && parseFloat(getBrowserMsg().ie) > 8){
     		height = $input.height();
     	}
-    	if(browserV.ie != undefined){
+    	if(browserV.ie != undefined && options.emptyText == null){
     		options.emptyText = '--请选择--';
     	}
     	var name = $input.attr('name')?$input.attr('name'):'';//name属性
@@ -539,7 +539,7 @@
     /**
      * 选择文本框keydown事件
      */
-	BootstrapSelect.prototype.keyDown = function(){
+	BootstrapSelect.prototype.keyDown = function(event){
 		var $this = this;
     	var $contentDownList = $this.$contentDownList;
     	//输入框keydown事件
@@ -712,15 +712,20 @@
 				unSelect = true;
 			}
 			else{
-				if($selItem.html() == $this.options.emptyText){
-					$this.$contentDownList.find('div').removeClass($this.options.selItemCls); 
-					$this.$contentDownList.find('div').css('background','');
-					$this.hideDownList();
+				if($this.options.emptyText != null){//有设置空节点
+					if($selItem.html() == $this.options.emptyText){//空节点被选择
+						$this.$contentDownList.find('div').siblings().removeClass($this.options.selItemCls); 
+						$this.$contentDownList.find('div').siblings().css('background','');
+						$this.hideDownList();
+					}else{
+						//其他节点被选择时，设置空节点不被选择
+						$this.$contentDownList.find('div:contains("'+$this.options.emptyText+'")').removeClass($this.options.selItemCls);
+						$this.$contentDownList.find('div:contains("'+$this.options.emptyText+'")').css('background','');
+					}
 				}
-				else{
-					$selItem.addClass($this.options.selItemCls);
-					$selItem.css({'background':'none repeat scroll 0 0 '+$this.options.selItemColor},{'color':'#FFFFFF'});
-				}
+				//设置被选择节点的样式
+				$selItem.addClass($this.options.selItemCls);
+				$selItem.css({'background':'none repeat scroll 0 0 '+$this.options.selItemColor},{'color':'#FFFFFF'});
 			}
 		}
 		else{
@@ -868,6 +873,7 @@
 		}
 		var itemsHtml = '';
 		for(var i=0;i<data_.length;i++){
+			options.formatter.call(this,data_[i]);
 			itemsHtml += '<div style="padding-left:17px;width:100%;height:20px;line-height:20px;">' + data_[i][options.textField] + '</div>';
 		}
 		$this.html(itemsHtml);

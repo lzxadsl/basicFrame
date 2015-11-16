@@ -17,8 +17,8 @@
     			data:[{id:1,text:'lzx'},{id:2,text:'lsl'}],
 				//url:'',
 				downBorder:true,
-    			multiple:true,//多选
-    			disabled:true,
+    			//multiple:true,//多选
+    			//disabled:true,
     			onSelect:function(val,rec){
 
     			}
@@ -28,10 +28,16 @@
 				multiple:true,//多选
 				filter:function(keyword,row){
 					//console.log((row['text'].indexOf(keyword)!=-1));
+					
 					return ((row['text'].indexOf(keyword)!=-1));
 				},
     			onSelect:function(val,rec){
+    				console.log($('#order_status2').bootstrapSelect('getValue'));
     				console.log($('#order_status2').bootstrapSelect('getTextForVal','lzx2'));//根据文本获取值
+    			},
+    			formatter:function(rec){
+    				rec.text = rec.text+'_nihao'
+    				console.log(rec);
     			}
     		}); 
 			
