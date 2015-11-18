@@ -8,19 +8,14 @@ import javax.jms.Destination;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.support.RequestContext;
-import org.springframework.web.servlet.support.RequestContextUtils;
-
 import com.frame.authority.model.User;
 import com.frame.authority.service.IUserService;
 import com.frame.basic.model.PageData;
@@ -33,7 +28,7 @@ import com.frame.system.service.IProducerService;
  * @date 2015-9-16 上午8:54:55
  */
 @Controller
-@SessionAttributes("show_msg")//将ModelMap中show_msg属性添加到sessiong中
+@SessionAttributes("username")//将ModelMap中show_msg属性添加到sessiong中
 @RequestMapping(value="/user/*")
 public class UserController {
 
@@ -84,9 +79,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="ajaxTest.htm")
-	public @ResponseBody Map<String, Object> ajaxTest(String json,HttpServletRequest request){
+	public @ResponseBody Map<String, Object> ajaxTest(ModelMap model,String json,@ModelAttribute("username") String username){
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(request.getSession().getAttribute("show_msg"));
+		System.out.println(username);
+		model.addAttribute("username","lsssssssssssss");
 		return map;
 	}
 	

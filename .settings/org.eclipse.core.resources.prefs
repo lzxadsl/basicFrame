@@ -1,0 +1,4 @@
+#Wed Nov 18 16:47:02 CST 2015
+eclipse.preferences.version=1
+encoding//resources/config/db.properties=UTF-8
+encoding//resources/config/redis.properties=UTF-8

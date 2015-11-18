@@ -1,5 +1,6 @@
 package com.frame.controller.authority;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
 	@RequestMapping(value="login.htm")
-	public String login(String username,ModelMap map){
+	public String login(String username,ModelMap map,HttpServletRequest request){
 		map.addAttribute("msg","你好啊! "+username);
+		request.getSession().setAttribute("username",username);
 		return "/basic/iframe1";
 	}
 }

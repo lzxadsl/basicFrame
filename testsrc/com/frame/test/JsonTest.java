@@ -1,6 +1,8 @@
 package com.frame.test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +58,10 @@ public class JsonTest {
 		list1.add(123);
 		list = list1;
 		System.out.println(list.size());
+		String order_no = new SimpleDateFormat("yyMMdd").format(new Date());
+		String max_id = String.valueOf("20150723180544").substring(6, String.valueOf("20150723180544").length());
+		max_id = String.valueOf(Integer.parseInt(max_id)+1);
+		System.out.println(order_no+max_id);
 	}
 	public static void array(){
 		String[] ary = new String[10];

@@ -83,8 +83,11 @@
 	<classpathentry kind="lib" path="lib/mq/hawtbuf-1.9.jar"/>
 	<classpathentry kind="lib" path="lib/mq/spring-jms-3.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/mq/userAgentUtils.jar"/>
-	<classpathentry kind="lib" path="lib/common/commons-pool-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/mq/activemq-web-5.12.1.jar"/>
 	<classpathentry kind="lib" path="lib/json/fastjson-1.1.28.jar"/>
+	<classpathentry kind="lib" path="lib/common/commons-pool2-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/redis/jedis-2.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/redis/spring-data-redis-1.6.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/common/commons-pool-1.6.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
