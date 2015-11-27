@@ -24,7 +24,7 @@
 		    set username = #{username},
 		    password = #{password},
 		    nick = #{nick},
-		    sex = #{sex_w}
+		    sex = #{sex}
 		where user_id = #{user_id}
 	</update>
 	

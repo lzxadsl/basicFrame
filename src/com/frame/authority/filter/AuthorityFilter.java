@@ -59,9 +59,10 @@ public class AuthorityFilter implements Filter{
 				httpResponse.setCharacterEncoding("UTF-8");
 				httpResponse.sendError(HttpStatus.UNAUTHORIZED.value(),"您已经太长时间没有操作，清刷新页面！");
 			}
-			httpResponse.sendRedirect("forword.htm?page=login");
+			httpResponse.sendRedirect("/basic-frame/forword.htm?page=login");
 			return;
 		}
+		
 		chain.doFilter(request, response);
 		return;
 	}

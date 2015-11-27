@@ -3,6 +3,7 @@ package com.frame.authority.service.impl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.frame.authority.dao.IUserDao;
@@ -41,7 +42,19 @@ public class UserService extends BaseService<User, Integer> implements IUserServ
 
 	@Override
 	@Transactional
-	public void updateUser(User user) {
+	public void updateUser(User user){
+		System.out.println("执行更新操作...........");
 		getDao().update(user);
+		//getDao().insert(user);
+		
+	}
+
+	@Override
+	@Transactional
+	public void transation(User user,String newName){
+		getDao().insert(user);
+		user.setUsername(newName);
+		updateUser(user);
+		throw new Error("...........");
 	}
 }

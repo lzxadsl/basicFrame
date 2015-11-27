@@ -85,6 +85,12 @@ public class SolrTest {
 	}
 	public static void main(String[] args) {
 		//getOrders();
-		testSolrUtil();
+		//testSolrUtil();
+		String str = null;
+		try {
+			System.out.println(str.length());
+		} catch (Exception e){
+		}
+		System.out.println("继续执行...");
 	}
 }

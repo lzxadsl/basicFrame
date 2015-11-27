@@ -27,14 +27,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		};
     		parent.mainFun('iframe1');
     		$('#req').on('click',function(){
-    			$.delCookie('lzx');
     			$.ajax({
-					url:'user/ajaxTest.htm',
+					url:'user/save.htm',
 					type:'post',
 					dataType:'json',
 					data:{},
 					success:function(res){
-						console.log('cookie:'+$.getCookie('lzx'));
 						console.log(res);
 					},
 					error:function(res){
@@ -49,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 	<span>我是iframe1</span>
 	${msg}
-	<a class="btn btn-default" id="req">请求</a>
+	<a class="btn btn-default" id="req">新增</a>
 	<input id="input" value="" type="text"/>
   </body>
 </html>

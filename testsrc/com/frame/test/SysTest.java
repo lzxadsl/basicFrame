@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.frame.authority.model.User;
 import com.frame.authority.service.IUserService;
 import com.frame.system.service.IProducerService;
+import com.frame.test.service.ITestBeanService;
 
 
 /**
@@ -22,7 +23,8 @@ import com.frame.system.service.IProducerService;
 public class SysTest {
 	@Autowired
 	private IUserService userService;
-	
+	@Autowired
+	private ITestBeanService testBean;
 	@Test
 	public void test() {
 		/*PageData page = new PageData();
@@ -36,11 +38,13 @@ public class SysTest {
 		user.setUsername("aop2");
 		user.setSex("男");
 		user.setNick("admin");
-		userService.saveUser(user);
+		//testBean.test();
+		//userService.saveUser(user);
 		//userService.update(user);
+		userService.transation(user, "更新名称");
 	}
 	
-	@Autowired
+	/*@Autowired
 	private IProducerService pService;
 	@Autowired
 	Destination destination;
@@ -50,5 +54,5 @@ public class SysTest {
 			Thread.sleep(5000);
 			pService.sendMessage(destination, "你好，生产者！这是消息：" + (i+1));
         }
-	}
+	}*/
 }

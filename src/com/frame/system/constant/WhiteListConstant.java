@@ -22,6 +22,8 @@ public class WhiteListConstant {
 	}
 	//白名单列表
 	private List<String> whiteList = new ArrayList<String>(); 
+	//是否全部不拦截
+	private boolean noIntercept = false;
 	/**
 	 * 获取实例
 	 */
@@ -34,7 +36,7 @@ public class WhiteListConstant {
 	 */
 	public boolean isExist(String path){
 		boolean exist = false;
-		if(whiteList.contains(path)){
+		if(noIntercept || whiteList.contains(path)){
 			exist = true;
 		}
 		return exist;
@@ -62,8 +64,12 @@ public class WhiteListConstant {
 			InputStream in = this.getClass().getResourceAsStream("/power.properties");
 			prop.load(in);
 			String strList = prop.get("whiteList") == null ? "" : String.valueOf(prop.get("whiteList"));
-			List<String> wList = Arrays.asList(strList.split(";"));
-			this.whiteList = wList;
+			if(strList != null && "/*".equals(strList)){
+				noIntercept = true;
+			}else{
+				List<String> wList = Arrays.asList(strList.split(";"));
+				this.whiteList = wList;
+			}
 			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();

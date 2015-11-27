@@ -54,7 +54,6 @@ public class UserController {
 		if(StringUtils.isNotEmpty(user.getUsername())){
 			params.put("where","and username like '%"+user.getUsername()+"%'");
 		}
-
 		return userService.list(params);
 	}
 	
@@ -102,5 +101,14 @@ public class UserController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		pService.sendMessage(destination, "欢迎光临.......");
 		return map;
+	}
+	@RequestMapping(value="save.htm")
+	public @ResponseBody String save(){
+		User user = new User();
+		user.setUsername("aop2");
+		user.setSex("男");
+		user.setNick("admin");
+		userService.transation(user,"更新名称");
+		return "200";
 	}
 }

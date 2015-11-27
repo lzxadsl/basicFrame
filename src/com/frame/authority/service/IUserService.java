@@ -16,4 +16,6 @@ public interface IUserService extends IBaseService<User, Integer>{
 	public void saveUser(User user);
 	
 	public void updateUser(User user);
+	
+	public void transation(User user,String newName);
 }

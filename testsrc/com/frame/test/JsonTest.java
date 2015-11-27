@@ -62,6 +62,8 @@ public class JsonTest {
 		String max_id = String.valueOf("20150723180544").substring(6, String.valueOf("20150723180544").length());
 		max_id = String.valueOf(Integer.parseInt(max_id)+1);
 		System.out.println(order_no+max_id);
+		List<String> whiteList = new ArrayList<String>();
+		System.out.println(whiteList.get(0));
 	}
 	public static void array(){
 		String[] ary = new String[10];

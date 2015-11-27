@@ -67,5 +67,4 @@
 	<context:component-scan base-package="com.frame.">
 	    <context:exclude-filter type="regex" expression=".*.*Controller$" />
 	</context:component-scan>
-	
 </beans>

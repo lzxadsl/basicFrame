@@ -49,12 +49,12 @@
     </bean> 
     
     <!-- 消息监听器 -->
-    <bean id="consumerMessageListener" class="com.frame.system.listener.ConsumerMessageListener"/>
-    <!-- 消息监听容器 --> 
+    <!-- <bean id="consumerMessageListener" class="com.frame.system.listener.ConsumerMessageListener"/>
+            消息监听容器 
     <bean id="jmsContainer"
         class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="jmsFactory" />
         <property name="destination" ref="destination" />
         <property name="messageListener" ref="consumerMessageListener" />
-    </bean>
+    </bean> -->
 </beans> 
