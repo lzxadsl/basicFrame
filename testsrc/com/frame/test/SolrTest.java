@@ -14,6 +14,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import com.frame.basic.utils.BeanUtil;
 import com.frame.solr.model.OrderForm;

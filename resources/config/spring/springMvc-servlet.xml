@@ -73,11 +73,11 @@
 	     <property name="maxUploadSize"><value>10737418240</value></property> 
 	</bean> 
 
-    <!--
+    
     <mvc:interceptors>
-        <bean class="com.hczd.sys.authority.interceptor.HZ_ControllerInterceptor"></bean>
+        <bean class="com.frame.system.interceptor.WebInterceptor"></bean>
     </mvc:interceptors>
-    -->
+    
     <!-- jasperreport 配置 
 	<bean id="jasperReportsViewResolver" class="org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver">  
         <property name="order" value="0"></property>  

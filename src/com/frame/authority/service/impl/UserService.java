@@ -54,7 +54,7 @@ public class UserService extends BaseService<User, Integer> implements IUserServ
 	public void transation(User user,String newName){
 		getDao().insert(user);
 		user.setUsername(newName);
-		updateUser(user);
-		throw new Error("...........");
+		//updateUser(user);
+		//throw new Error("...........");
 	}
 }

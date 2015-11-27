@@ -108,7 +108,7 @@ public class UserController {
 		user.setUsername("aop2");
 		user.setSex("男");
 		user.setNick("admin");
-		userService.transation(user,"更新名称");
+		//userService.transation(user,"更新名称");
 		return "200";
 	}
 }

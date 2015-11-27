@@ -36,7 +36,7 @@ public class ForwordController {
     			model.addObject(paramName,request.getParameter(paramName));
     		}
     	}
-        model.setViewName("/basic/" + page);
+        model.setViewName("basic/" + page);
         return model;
     }
 }
