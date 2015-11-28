@@ -3,6 +3,7 @@ package com.frame.controller.system;
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,28 +14,23 @@ import org.springframework.web.servlet.ModelAndView;
  * @date 2015-11-13 上午9:19:53
  */
 @Controller
-@RequestMapping(value="/*")
+@RequestMapping(value="/forword/*")
 public class ForwordController {
 
 	/**
      * 页面跳转
-     * 返回的页面应该在    /WEB-INF/views/basic/xxx
-     * 访问地址格式：forword.htm?page=login （参数名一定要page）
+     * 返回的页面应该在    /WEB-INF/views/basic/{page}
+     * 访问地址格式：forword/{page}.htm?params=xxx 
      * @param page /WEB-INF/views/basic/ 下页面的名称（不需要.jsp后缀）
      * @return
      */
-    @RequestMapping(value = "forword.htm")
-    public ModelAndView basic(ModelAndView model,HttpServletRequest request){
-    	String page = "";
+    @RequestMapping(value = "basic/{page}.htm")
+    public ModelAndView basic(ModelAndView model,HttpServletRequest request,@PathVariable String page){
+    	//String page = "";
     	Enumeration<?> paramNames = request.getParameterNames();
     	while(paramNames.hasMoreElements()){
     		String paramName = (String)paramNames.nextElement();
-    		if("page".equals(paramName)){
-    			page = request.getParameter(paramName);
-    		}
-    		else{
-    			model.addObject(paramName,request.getParameter(paramName));
-    		}
+    		model.addObject(paramName,request.getParameter(paramName));
     	}
         model.setViewName("basic/" + page);
         return model;

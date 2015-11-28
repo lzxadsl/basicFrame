@@ -26,7 +26,7 @@
     <div id="loginContainer" class="login-center">
 		<div style="text-align: center;">
             <h2>工作流引擎Activiti项目</h2>
-            <h3>作者：lzx</h3>
+            <h3>作者：lzx ${msg}</h3>
             <h3>当前版本：V1.0</h3>
             <c:if test="${not empty param.error}">
 	            <h3 id="error" style="color:red;">用户名或密码错误！</h3>
