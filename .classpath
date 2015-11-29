@@ -27,23 +27,23 @@
 	<classpathentry kind="lib" path="lib/spring/aspectjweaver-1.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/spring/jackson-core-lgpl-1.6.9.jar"/>
 	<classpathentry kind="lib" path="lib/spring/jackson-mapper-lgpl-1.6.9.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-aop-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-aop-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-aop-3.2.15.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="lib/spring/spring-asm-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-beans-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-context-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-context-support-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-core-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-beans-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-beans-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-context-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-context-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-context-support-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-context-support-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-core-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-core-3.2.15.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="lib/spring/spring-expression-3.2.0.M1.jar"/>
 	<classpathentry kind="lib" path="lib/spring/spring-instrument-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-jdbc-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-jdbc-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-jdbc-3.2.15.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="lib/spring/spring-jms-3.2.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-orm-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-oxm-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-test-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-tx-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-web-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-webmvc-3.2.0.M1.jar"/>
-	<classpathentry kind="lib" path="lib/spring/spring-webmvc-portlet-3.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-orm-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-orm-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-oxm-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-oxm-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-test-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-test-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-tx-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-tx-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-web-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-web-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-webmvc-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-webmvc-3.2.15.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-webmvc-portlet-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-webmvc-portlet-3.2.15.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/ehcache-core-2.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/ehcache-spring-annotations-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/google-collections-1.0.jar"/>
@@ -81,7 +81,7 @@
 	<classpathentry kind="lib" path="lib/mq/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/mq/geronimo-jms_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/mq/hawtbuf-1.9.jar"/>
-	<classpathentry kind="lib" path="lib/mq/spring-jms-3.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/mq/spring-jms-3.2.4.RELEASE.jar" sourcepath="D:/source_lib/spring/spring-jms-3.2.15.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="lib/mq/userAgentUtils.jar"/>
 	<classpathentry kind="lib" path="lib/mq/activemq-web-5.12.1.jar"/>
 	<classpathentry kind="lib" path="lib/json/fastjson-1.1.28.jar"/>

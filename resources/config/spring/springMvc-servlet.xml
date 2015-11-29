@@ -75,7 +75,8 @@
 
     
     <mvc:interceptors>
-        <bean class="com.frame.system.interceptor.WebInterceptor"></bean>
+	    <bean class="com.frame.system.interceptor.WebInterceptor"></bean>
+        <bean class="com.frame.system.interceptor.WebInterceptor1"></bean>
     </mvc:interceptors>
     
     <!-- jasperreport 配置 
