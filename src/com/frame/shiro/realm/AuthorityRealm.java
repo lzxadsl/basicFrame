@@ -21,6 +21,7 @@ import org.apache.shiro.subject.Subject;
 
 import com.frame.authority.model.Permission;
 import com.frame.authority.model.Role;
+import com.frame.authority.model.User;
 
 public class AuthorityRealm extends AuthorizingRealm{
 
@@ -36,29 +37,33 @@ public class AuthorityRealm extends AuthorizingRealm{
         //获取当前登录的用户名,等价于(String)principals.fromRealm(this.getName()).iterator().next()  
         //String currentUsername = (String)super.getAvailablePrincipal(principals);  
         String username = (String) principals.getPrimaryPrincipal();
-        Set<Role> roleSet =  new HashSet<Role>();//userService.findUserByUsername(username).getRoleSet();
-        //角色名的集合
-        Set<String> roles = new HashSet<String>();
-        //权限名的集合
-        Set<String> permissions = new HashSet<String>();
-        
-        Iterator<Role> it = roleSet.iterator();
-        while(it.hasNext()){
-          roles.add(it.next().getName());
-          for(Permission per:it.next().getPermissionSet()){
-            permissions.add(per.getName());
-          }
+        User user = new User();//userService.findUserByUsername(username).getRoleSet();
+        if(user != null){
+        	Set<Role> roleSet =  user.getRoleSet();
+            //角色名的集合
+            Set<String> roles = new HashSet<String>();
+            //权限名的集合
+            Set<String> permissions = new HashSet<String>();
+            
+            Iterator<Role> it = roleSet.iterator();
+            while(it.hasNext()){
+              roles.add(it.next().getName());
+              for(Permission per:it.next().getPermissionSet()){
+                permissions.add(per.getName());
+              }
+            }
+            SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+            //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色   
+            authorizationInfo.addRoles(roles);
+            //添加权限  
+            authorizationInfo.addStringPermissions(permissions);
+            //若该方法什么都不做直接返回null的话,就会导致任何用户访问时会根据配置文件中filterChainDefinitions来进行处理
+            //详见applicationContext.xml中的<bean id="shiroFilter">的配置  
+            return authorizationInfo;  
+        }else{
+        	return null;
         }
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色   
-        authorizationInfo.addRoles(roles);
-        //添加权限  
-        authorizationInfo.addStringPermissions(permissions);
-        //若该方法什么都不做直接返回null的话,就会导致任何用户访问时会根据配置文件中filterChainDefinitions来进行处理
-        //详见applicationContext.xml中的<bean id="shiroFilter">的配置  
-        return authorizationInfo;  
     }  
-   
        
     /** 
      * 验证当前登录的Subject 
