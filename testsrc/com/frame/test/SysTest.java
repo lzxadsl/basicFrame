@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.frame.authority.model.User;
+import com.frame.authority.model.SysUser;
 import com.frame.authority.service.IUserService;
 import com.frame.system.service.IProducerService;
 import com.frame.test.service.ITestBeanService;
@@ -34,7 +34,7 @@ public class SysTest {
 		for(User u : list){
 			System.out.println(u.getUsername());
 		}*/
-		User user = new User();
+		SysUser user = new SysUser();
 		user.setUsername("aop2");
 		user.setSex("男");
 		user.setNick("admin");

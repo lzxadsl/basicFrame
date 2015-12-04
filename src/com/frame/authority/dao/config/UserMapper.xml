@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.frame.authority.dao.IUserDao">
 	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
-	<select id="selectList" resultType="User" parameterType="map">  
+	<select id="selectList" resultType="SysUser" parameterType="map">  
         SELECT 
 			*
  		FROM user where 1=1 ${where}
@@ -15,7 +15,7 @@
  		FROM user  
 	</select> 
 	
-	<select id="get" parameterType="string" resultType="User">
+	<select id="get" parameterType="string" resultType="SysUser">
 	    select * from user where user_id = #{id}
 	</select>
 	
@@ -28,7 +28,7 @@
 		where user_id = #{user_id}
 	</update>
 	
-	<insert id="insert" parameterType="User" keyProperty="user_id">
+	<insert id="insert" parameterType="SysUser" keyProperty="user_id">
 	    insert into user(
 	    	username,password,nick,sex
 	    )  values(

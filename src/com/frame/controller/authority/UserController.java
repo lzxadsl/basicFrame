@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import com.frame.authority.model.User;
+import com.frame.authority.model.SysUser;
 import com.frame.authority.service.IUserService;
 import com.frame.basic.model.PageData;
 import com.frame.system.service.IProducerService;
@@ -49,7 +49,7 @@ public class UserController {
 	Destination destination;
 	
 	@RequestMapping(value="getUser.htm")
-	public @ResponseBody List<User> getUser(User user){
+	public @ResponseBody List<SysUser> getUser(SysUser user){
 		Map<String, Object> params = new HashMap<String, Object>();
 		if(StringUtils.isNotEmpty(user.getUsername())){
 			params.put("where","and username like '%"+user.getUsername()+"%'");
@@ -58,7 +58,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="getUserList.htm")
-	public @ResponseBody Map<String, Object> getUserList(User user,PageData pageData){
+	public @ResponseBody Map<String, Object> getUserList(SysUser user,PageData pageData){
 		Map<String, Object> params = new HashMap<String, Object>();
 		if(StringUtils.isNotEmpty(user.getUsername())){
 			params.put("where","and username like '%"+user.getUsername()+"%' ");
@@ -70,7 +70,7 @@ public class UserController {
 		user1.setNick("admin");
 		userService.saveUser(user1);
 		System.out.println(user1);*/
-		List<User> list = userService.listPage(params, pageData);
+		List<SysUser> list = userService.listPage(params, pageData);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("rows",list);
 		map.put("total",pageData.getTotalSize());
@@ -104,7 +104,7 @@ public class UserController {
 	}
 	@RequestMapping(value="save.htm")
 	public @ResponseBody String save(){
-		User user = new User();
+		SysUser user = new SysUser();
 		user.setUsername("aop2");
 		user.setSex("男");
 		user.setNick("admin");

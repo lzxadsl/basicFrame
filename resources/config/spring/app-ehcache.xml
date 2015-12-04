@@ -8,11 +8,10 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 	http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring  
-    http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+    http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.2.xsd">
 	
 	<!-- 缓存配置 -->
     <ehcache:annotation-driven cache-manager="ehCacheManager" /> 
- 
  	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">  
        <property name="configLocation" value="classpath:ehcache.xml" />  
    </bean> 

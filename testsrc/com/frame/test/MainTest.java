@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import org.apache.commons.lang3.StringUtils;
 
 
-import com.frame.authority.model.User;
+import com.frame.authority.model.SysUser;
 import com.frame.authority.service.IUserService;
 
 /**
@@ -20,8 +20,8 @@ public class MainTest {
 		/**
 		 * 研究泛型
 		 */
-		Generic<User> gen = new Generic<User>();
-		User u = new User();
+		Generic<SysUser> gen = new Generic<SysUser>();
+		SysUser u = new SysUser();
 		u.setUsername("lzx");
 		Method method = gen.getGenericType(0).getMethod("setUserId",new Class[]{String.class});
 		System.out.println(method);
@@ -40,7 +40,7 @@ public class MainTest {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println(User.class instanceof Class);
+		System.out.println(SysUser.class instanceof Class);
 		
 		Class<?>[] interfaces = new Class[]{IUserService.class}; 
 		ClassLoader cload = IUserService.class.getClassLoader();

@@ -48,7 +48,6 @@
 	<classpathentry kind="lib" path="lib/ehcache/ehcache-spring-annotations-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/google-collections-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/mybatis-ehcache-1.0.3.jar"/>
-	<classpathentry kind="lib" path="lib/driver/mysql-connector-java-5.1.20-bin.jar"/>
 	<classpathentry kind="lib" path="lib/json/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/junit/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="lib/common/freemarker-2.3.15.jar"/>
@@ -89,5 +88,7 @@
 	<classpathentry kind="lib" path="lib/redis/jedis-2.7.3.jar"/>
 	<classpathentry kind="lib" path="lib/redis/spring-data-redis-1.6.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/common/commons-pool-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/driver/postgresql.jar"/>
+	<classpathentry kind="lib" path="lib/shiro/shiro-all-1.2.4.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

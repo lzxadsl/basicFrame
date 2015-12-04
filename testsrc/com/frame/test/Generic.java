@@ -3,7 +3,7 @@ package com.frame.test;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import com.frame.authority.model.User;
+import com.frame.authority.model.SysUser;
 
 /**
  * 泛型类测试
@@ -11,7 +11,7 @@ import com.frame.authority.model.User;
  * @version 1.0
  * @date 2015-9-17 下午4:42:32
  */
-public class Generic<T> extends SupperGeneric<User>{
+public class Generic<T> extends SupperGeneric<SysUser>{
 
 
 	//获取父类指定位置泛型参数类型

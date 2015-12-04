@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.frame.authority.model.User;
+import com.frame.authority.model.SysUser;
 import com.frame.authority.service.IUserService;
 
 /**
@@ -66,7 +66,7 @@ public class AopInterceptor {
     @Transactional
     public void afterReturn(){//被拦截的方法没报错才会执行
         System.out.println("返回后通知");  
-        User user = new User();
+        SysUser user = new SysUser();
         user.setUsername("5");
 		user.setUsername("aop2222");
         userService.update(user);
