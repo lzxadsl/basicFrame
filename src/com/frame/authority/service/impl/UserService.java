@@ -3,11 +3,9 @@ package com.frame.authority.service.impl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.frame.authority.dao.IUserDao;
-import com.frame.authority.model.SysUser;
+import com.frame.authority.model.User;
 import com.frame.authority.service.IUserService;
 import com.frame.basic.service.impl.BaseService;
 
@@ -18,7 +16,7 @@ import com.frame.basic.service.impl.BaseService;
  * @date 2015-9-18 上午10:11:48
  */
 @Service
-public class UserService extends BaseService<SysUser, Integer> implements IUserService {
+public class UserService extends BaseService<User, Integer> implements IUserService {
 
 	/**
 	 * @param sqlSessionFactory
@@ -30,19 +28,19 @@ public class UserService extends BaseService<SysUser, Integer> implements IUserS
 	}
 
 	@Override
-	public SysUser getUser(Integer id) {
+	public User getUser(Integer id) {
 		return getDao().get(id);
 	}
 
 	@Override
 	@Transactional
-	public void saveUser(SysUser user) {
+	public void saveUser(User user) {
 		getDao().insert(user);
 	}
 
 	@Override
 	@Transactional
-	public void updateUser(SysUser user){
+	public void updateUser(User user){
 		System.out.println("执行更新操作...........");
 		getDao().update(user);
 		//getDao().insert(user);
@@ -51,10 +49,15 @@ public class UserService extends BaseService<SysUser, Integer> implements IUserS
 
 	@Override
 	@Transactional
-	public void transation(SysUser user,String newName){
+	public void transation(User user,String newName){
 		getDao().insert(user);
 		user.setUsername(newName);
 		//updateUser(user);
 		//throw new Error("...........");
+	}
+
+	@Override
+	public User getUserByName(String username) {
+		return null;
 	}
 }

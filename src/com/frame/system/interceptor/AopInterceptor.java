@@ -12,8 +12,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.frame.authority.model.SysUser;
 import com.frame.authority.service.IUserService;
 
 /**
@@ -26,9 +24,6 @@ import com.frame.authority.service.IUserService;
 @Service
 public class AopInterceptor {
 
-	@Autowired
-	private IUserService userService;
-	
 	/**
 	 * 定义一个切入点
 	 * public 公有方法
@@ -66,11 +61,6 @@ public class AopInterceptor {
     @Transactional
     public void afterReturn(){//被拦截的方法没报错才会执行
         System.out.println("返回后通知");  
-        SysUser user = new SysUser();
-        user.setUsername("5");
-		user.setUsername("aop2222");
-        userService.update(user);
-        //throw new RuntimeException();
     } 
     
     @AfterThrowing("log()")  
