@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.frame.authority.dao.IUserDao">
 	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
-	<select id="selectList" resultType="SysUser" parameterType="map">  
+	<select id="selectList" resultType="User" parameterType="map">  
         SELECT 
 			*
  		FROM user where 1=1 ${where}
@@ -15,28 +15,30 @@
  		FROM user  
 	</select> 
 	
-	<select id="get" parameterType="string" resultType="SysUser">
-	    select * from user where user_id = #{id}
+	<select id="get" parameterType="string" resultType="User">
+	    select * from user where id = #{id}
+	</select>
+	
+	<select id="selectUserByName" parameterType="string" resultType="User">
+	    select * from user where username = #{username}
 	</select>
 	
 	<update id="update">
 	    update user 
 		    set username = #{username},
-		    password = #{password},
-		    nick = #{nick},
-		    sex = #{sex}
-		where user_id = #{user_id}
+		    password = #{password}
+		where id = #{id}
 	</update>
 	
-	<insert id="insert" parameterType="SysUser" keyProperty="user_id">
+	<insert id="insert" parameterType="User" keyProperty="id">
 	    insert into user(
-	    	username,password,nick,sex
+	    	username,password
 	    )  values(
-	    	#{username},#{password},#{nick},#{sex}
+	    	#{username},#{password}
 	    )
 	    
-		<selectKey keyProperty="user_id" resultType="String" order="AFTER">  
-	        select max(user_id) from user
+		<selectKey keyProperty="id" resultType="String" order="AFTER">  
+	        select max(id) from user
 	    </selectKey> 
 	</insert>
 </mapper>	
