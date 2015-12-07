@@ -52,6 +52,7 @@
 	        <value>  
 	             /forword/basic/*.htm=anon  
 	             /shiro/*.htm=anon
+	             /shiro/main.htm=authc
 	             /**=authc  
 	        </value>  
 	    </property> 

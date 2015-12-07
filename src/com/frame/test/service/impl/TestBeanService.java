@@ -27,7 +27,7 @@ public class TestBeanService implements ITestBeanService{
 		ResultSet rs = null;
 		try {
 			Statement stat = dSource.getConnection().createStatement();
-			rs = stat.executeQuery("select * from user");
+			rs = stat.executeQuery("select * from sys_user");
 			while(rs.next()){
 				System.out.println(rs.getString(1)+":"+rs.getString(2));
 			}

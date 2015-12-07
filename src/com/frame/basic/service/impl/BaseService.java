@@ -33,7 +33,7 @@ public class BaseService<T,K> extends SqlSessionTemplate implements IBaseService
 	public void setDaoClass(Class<? extends IBaseDao<T, K>> daoClass){
 		this.daoClass = daoClass;
 	}
-	
+
 	/**
 	 * 获取DAO接口
 	 */

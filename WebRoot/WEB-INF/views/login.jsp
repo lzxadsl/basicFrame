@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <h3>作者：lzx</h3>
             <h3>当前版本：V1.0</h3>
             <c:if test="${not empty error}">
-	            <h3 id="error" style="color:red;">用户名或密码错误！</h3>
+	            <h3 id="error" style="color:red;">${error}</h3>
 	        </c:if>
 	        <c:if test="${not empty isempty}">
 	            <h3 id="error" style="color:red;">用户名或密码不能为空！</h3>

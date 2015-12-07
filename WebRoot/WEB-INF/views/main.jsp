@@ -24,5 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	登入成功，欢迎光临！
+  	<a href="shiro/logout.htm">注销登入</a>
+  	${msg}
   </body>
 </html>

@@ -58,6 +58,6 @@ public class UserService extends BaseService<User, Integer> implements IUserServ
 
 	@Override
 	public User getUserByName(String username) {
-		return null;
+		return this.getMapper(IUserDao.class).selectUserByName(username);
 	}
 }
