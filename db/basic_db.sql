@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90200
 File Encoding         : 65001
 
-Date: 2015-12-07 17:32:35
+Date: 2015-12-08 17:15:52
 */
 
 
@@ -145,7 +145,8 @@ DROP TABLE IF EXISTS "sys_user";
 CREATE TABLE "sys_user" (
 "id" int4 DEFAULT nextval('sys_user_id_seq'::regclass) NOT NULL,
 "username" varchar(32) COLLATE "default",
-"password" varchar(32) COLLATE "default"
+"password" varchar(32) COLLATE "default",
+"salt" varchar(255) COLLATE "default"
 )
 WITH (OIDS=FALSE)
 
@@ -155,8 +156,8 @@ WITH (OIDS=FALSE)
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO "sys_user" VALUES ('1', 'lzx', '123456');
-INSERT INTO "sys_user" VALUES ('2', 'lsl', '123456');
+INSERT INTO "sys_user" VALUES ('1', 'lzx', 'a237f81982f74291dd10f7dc115e271b', '132600921da3f9cc98e1600243ed2848');
+INSERT INTO "sys_user" VALUES ('2', 'lsl', 'aa8ac14329ddcba5ffa20771ab1c467c', '9bda7986741b84e5655035ec53cd47f9');
 COMMIT;
 
 -- ----------------------------
