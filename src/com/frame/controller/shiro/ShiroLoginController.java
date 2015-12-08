@@ -62,7 +62,7 @@ public class ShiroLoginController {
 			model.addAttribute("error",ue.getMessage());
 			errors.reject( "error.login.generic",ue.getMessage());
 		}catch(AuthenticationException e){
-			model.addAttribute("error","密码有误");
+			model.addAttribute("error",e.getMessage());
 			errors.reject( "error.login.generic", "密码有误");
 		}
 		System.out.println("是否验证通过："+subject.isAuthenticated());

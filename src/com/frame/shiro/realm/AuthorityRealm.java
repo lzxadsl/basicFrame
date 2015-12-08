@@ -19,28 +19,40 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.frame.authority.model.Permission;
 import com.frame.authority.model.Role;
 import com.frame.authority.model.User;
 import com.frame.authority.service.IUserService;
 
 public class AuthorityRealm extends AuthorizingRealm{
-
+	/**
+	 * 权限规则说名
+	 * anon:例子/admins/**=anon 没有参数，表示可以匿名使用，无需任何验证就可以访问。 
+	 * authc:例如/admins/user/**=authc表示需要认证(登录)才能使用，没有参数 
+	 * roles：例子/admins/user/**=roles[admin],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，当有多个参数时，例如admins/user/**=roles["admin,guest"],每个参数通过才算通过，相当于hasAllRoles()方法。 
+	 * perms：例子/admins/user/**=perms[user:add:*],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，例如/admins/user/**=perms["user:add:*,user:modify:*"]，当有多个参数时必须每个参数都通过才通过，想当于isPermitedAll()方法。 
+	 * rest：例子/admins/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user:method] ,其中method为post，get，delete等。 
+	 * port：例子/admins/user/**=port[8081],当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString是你访问的url里的？后面的参数。 
+	 * authcBasic：例如/admins/user/**=authcBasic没有参数表示httpBasic认证 
+	 * ssl:例子/admins/user/**=ssl没有参数，表示安全的url请求，协议为https 
+	 * user:例如/admins/user/**=user没有参数表示必须存在用户，当登入操作时不做检查
+	 */
+	
 	@Autowired
 	private IUserService userService;
+	
 	/** 
      * 为当前登录的Subject授予角色和权限 
-     * @see  经测试:本例中该方法的调用时机为需授权资源被访问时 
+     * @see  经测试:本例中该方法的调用时机为需授权资源被访问时(如：perms、roles) 
      * @see  经测试:并且每次访问需授权资源时都会执行该方法中的逻辑,这表明本例中默认并未启用AuthorizationCache 
      * @see  个人感觉若使用了Spring3.1开始提供的ConcurrentMapCache支持,则可灵活决定是否启用AuthorizationCache 
      * @see  比如说这里从数据库获取权限信息时,先去访问Spring3.1提供的缓存,而不使用Shior提供的AuthorizationCache 
      */  
     @Override  
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals){  
-        //获取当前登录的用户名,等价于(String)principals.fromRealm(this.getName()).iterator().next()  
-        //String currentUsername = (String)super.getAvailablePrincipal(principals);  
+        //获取当前登录的用户名  
         String username = (String) principals.getPrimaryPrincipal();
         User user = userService.getUserByName(username);
         if(user != null){
@@ -52,10 +64,11 @@ public class AuthorityRealm extends AuthorizingRealm{
             
             Iterator<Role> it = roleSet.iterator();
             while(it.hasNext()){
-              roles.add(it.next().getName());
-              for(Permission per:it.next().getPermissionSet()){
-                permissions.add(per.getName());
-              }
+            	Role role = it.next();
+            	roles.add(role.getName());
+            	for(Permission per:role.getPermissionSet()){
+            		permissions.add(per.getName());
+            	}
             }
             SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
             //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色   
@@ -82,18 +95,15 @@ public class AuthorityRealm extends AuthorizingRealm{
         UsernamePasswordToken token = (UsernamePasswordToken)authcToken;  
         System.out.println("验证当前Subject时获取到token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));  
         User user = userService.getUserByName(token.getUsername());  
-      	if(null != user){  
-          AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(),this.getName());  
-          this.setSession("user", user);  
-          return authcInfo;  
+      	if(null != user){ 
+      		//根据数据库查询结果自动根界面输入比对
+      		SimpleAuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(),this.getName());  
+      		authcInfo.setCredentialsSalt(ByteSource.Util.bytes(user.getUsername()+user.getSalt()));
+      		this.setSession("user", user);  
+      		return authcInfo;  
       	}else{  
-          throw new UnknownAccountException("用户不存在");  
-          //return null;  
+      		throw new UnknownAccountException("用户不存在，请输入正确的用户名");  
       	}  
-        //此处无需比对,比对的逻辑Shiro会做,我们只需返回一个和令牌相关的正确的验证信息  
-        //说白了就是第一个参数填登录用户名,第二个参数填合法的登录密码(可以是从数据库中取到的,本例中为了演示就硬编码了)  
-        //这样一来,在随后的登录页面上就只有这里指定的用户和密码才能通过验证  
-        //没有返回登录用户名对应的SimpleAuthenticationInfo对象时,就会在LoginController中抛出UnknownAccountException异常  
     }  
        
        

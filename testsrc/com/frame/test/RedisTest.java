@@ -1,6 +1,12 @@
 package com.frame.test;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +37,36 @@ public class RedisTest {
 		System.out.println(data);
 		boundValueOperations.set("lsl");
 		System.out.println("-------:"+boundValueOperations.get());
+	}
+	@Test
+	public void set(){
+		Set<Integer> result = new HashSet<Integer>();
+		Set<Integer> set1 = new HashSet<Integer>(){{
+			add(1);
+			add(3);
+			add(5);
+		}};
+		
+		Set<Integer> set2 = new HashSet<Integer>(){{
+			add(1);
+			add(2);
+			add(3);
+		}};
+
+		result.addAll(set1);
+		result.addAll(set2);
+		System.out.println("并集："+result);	
+		set1.retainAll(set2);
+		System.out.println("交集："+set1);
+		result.removeAll(set1);
+		System.out.println("同时不存在："+result);
+		
+		/*result.addAll(set1);
+		result.removeAll(set2);
+		System.out.println("交集："+result);*/
+	}
+	public static void main(String[] args) {
+		RedisTest t = new RedisTest();
+		t.set();
 	}
 }

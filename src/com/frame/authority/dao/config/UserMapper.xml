@@ -7,6 +7,7 @@
 		<id property="id" column="id"/>
 	    <result property="username" column="username"/>
 	    <result property="password" column="password"/>
+	    <result property="salt" column="salt"/>
 	    <collection property="roleSet" column="role_id" ofType="com.frame.authority.model.Role">
 	    	<id property="id" column="role_id"/>
 	    	<result property="name" column="role_name"/>
@@ -37,6 +38,7 @@
 	    	a.id,
 	    	a.username,
 	    	a.password,
+	    	a.salt,
 	    	c.id as role_id,
 	    	c.name as role_name,
 	    	e.id as permission_id,

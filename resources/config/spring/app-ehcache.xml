@@ -12,7 +12,13 @@
 	
 	<!-- 缓存配置 -->
     <ehcache:annotation-driven cache-manager="ehCacheManager" /> 
- 	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">  
-       <property name="configLocation" value="classpath:ehcache.xml" />  
-   </bean> 
+    <!-- spring对ehcache的缓存工厂支持 -->
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+	    <property name="configLocation" value="classpath:ehcache.xml" />
+	    <property name="shared" value="false" />
+	</bean>
+ 	<!-- shiro对ehcache的缓存管理直接使用spring的缓存工厂 -->
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"> 
+	    <property name="cacheManager" ref="ehCacheManager" />
+	</bean>
 </beans>

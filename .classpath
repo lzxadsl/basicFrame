@@ -46,7 +46,6 @@
 	<classpathentry kind="lib" path="lib/spring/spring-webmvc-portlet-3.2.0.M1.jar" sourcepath="D:/source_lib/spring/spring-webmvc-portlet-3.2.15.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/ehcache-core-2.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/ehcache-spring-annotations-1.2.0.jar"/>
-	<classpathentry kind="lib" path="lib/ehcache/google-collections-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/mybatis-ehcache-1.0.3.jar"/>
 	<classpathentry kind="lib" path="lib/json/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/junit/junit-4.10.jar"/>
@@ -90,5 +89,6 @@
 	<classpathentry kind="lib" path="lib/common/commons-pool-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/driver/postgresql.jar"/>
 	<classpathentry kind="lib" path="lib/shiro/shiro-all-1.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/ehcache/google-common-18.0.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
