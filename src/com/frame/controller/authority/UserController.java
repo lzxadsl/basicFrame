@@ -54,6 +54,7 @@ public class UserController {
 		if(StringUtils.isNotEmpty(user.getUsername())){
 			params.put("where","and username like '%"+user.getUsername()+"%'");
 		}
+		TestClass.test();
 		return userService.list(params);
 	}
 	

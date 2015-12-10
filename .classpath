@@ -90,5 +90,9 @@
 	<classpathentry kind="lib" path="lib/driver/postgresql.jar"/>
 	<classpathentry kind="lib" path="lib/shiro/shiro-all-1.2.4.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache/google-common-18.0.jar"/>
+	<classpathentry kind="lib" path="lib/cas/cas-client-core-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/cas/cas-server-core-3.4.12.1.jar"/>
+	<classpathentry kind="lib" path="lib/cas/cas-server-support-jdbc-3.4.12.1.jar"/>
+	<classpathentry kind="lib" path="lib/cas/spring-security-cas-client-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
