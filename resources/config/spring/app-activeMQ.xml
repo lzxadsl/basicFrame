@@ -12,6 +12,8 @@
 	</bean>        
     <!-- 配置connectionFactory -->  
     <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">  
+        <!-- 接收者ID -->  
+        <property name="clientId" value="client_119" />  
         <property name="connectionFactory">  
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">  
            		 <property name="brokerURL">
@@ -26,35 +28,38 @@
         </property>  
     </bean>  
     <!-- 声明ActiveMQ消息目标,目标可以是一个队列，也可以是一个主题ActiveMQTopic -->   
-    <!-- 发送消息的目的地（一个队列，点对点） -->  
+    <!-- 发送消息的目的地（一个队列，点对点） --> 
     <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">  
-        <!-- 设置消息队列的名字 -->  
+        <!-- 设置消息队列的名字 -->
         <constructor-arg index="0" value="logQueue" />
-        <!--测试环境队列-->
-        <!--<constructor-arg index="0" value="logQueueTest" />-->
-        <!-- 开发环境队列 -->
-		<!--<constructor-arg index="0" value="logQueueDevelog" />-->
-   </bean> 
+    </bean>  
+    
    <!--这个是主题目的地，一对多的-->  
-   <!-- <bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">  
-	    <constructor-arg value="topic"/>  
-   </bean>  -->  
+   <bean id="consumedestination" class="org.apache.activemq.command.ActiveMQTopic">  
+	    <constructor-arg index="0" value="topic"/>  
+   </bean> 
    
 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">  
         <property name="connectionFactory" ref="jmsFactory"></property>  
         <property name="timeToLive" value="180"/>  
         <property name="explicitQosEnabled" value="true"/> 
         <!-- <property name="defaultDestination" ref="destination" />  -->
+        <!-- 区别它采用的模式为false是p2p为true是订阅 -->
         <property name="pubSubDomain" value="true"/>  
     </bean> 
     
     <!-- 消息监听器 -->
-    <!-- <bean id="consumerMessageListener" class="com.frame.system.listener.ConsumerMessageListener"/>
-            消息监听容器 
+    <bean id="consumerMessageListener" class="com.frame.system.listener.ConsumerMessageListener"/>
+    <!-- 消息监听容器 -->
     <bean id="jmsContainer"
         class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="jmsFactory" />
-        <property name="destination" ref="destination" />
+        <property name="destination" ref="consumedestination" />
+        <!-- 消息持久化 -->  
+        <property name="subscriptionDurable" value="true"/> 
+        <!-- 接收者ID -->  
+        <property name="clientId" value="client_119" />  
         <property name="messageListener" ref="consumerMessageListener" />
-    </bean> -->
+        <property name="pubSubNoLocal" value="false"></property> 
+    </bean> 
 </beans> 
