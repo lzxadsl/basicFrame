@@ -12,8 +12,6 @@
 	</bean>        
     <!-- 配置connectionFactory -->  
     <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">  
-        <!-- 接收者ID -->  
-        <property name="clientId" value="client_119" />  
         <property name="connectionFactory">  
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">  
            		 <property name="brokerURL">
@@ -29,13 +27,13 @@
     </bean>  
     <!-- 声明ActiveMQ消息目标,目标可以是一个队列，也可以是一个主题ActiveMQTopic -->   
     <!-- 发送消息的目的地（一个队列，点对点） --> 
-    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">  
-        <!-- 设置消息队列的名字 -->
+    <!-- <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">  
+        设置消息队列的名字
         <constructor-arg index="0" value="logQueue" />
-    </bean>  
+    </bean> -->  
     
    <!--这个是主题目的地，一对多的-->  
-   <bean id="consumedestination" class="org.apache.activemq.command.ActiveMQTopic">  
+   <bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">  
 	    <constructor-arg index="0" value="topic"/>  
    </bean> 
    
@@ -43,7 +41,7 @@
         <property name="connectionFactory" ref="jmsFactory"></property>  
         <property name="timeToLive" value="180"/>  
         <property name="explicitQosEnabled" value="true"/> 
-        <!-- <property name="defaultDestination" ref="destination" />  -->
+        <property name="defaultDestination" ref="destination" />
         <!-- 区别它采用的模式为false是p2p为true是订阅 -->
         <property name="pubSubDomain" value="true"/>  
     </bean> 
@@ -55,11 +53,13 @@
         class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="jmsFactory" />
         <property name="destination" ref="consumedestination" />
-        <!-- 消息持久化 -->  
+        <property name="messageListener" ref="destination" />
+        <property name="pubSubNoLocal" value="false"></property> 
+        <!-- 消息持久化,topic模式下有效 -->  
         <property name="subscriptionDurable" value="true"/> 
         <!-- 接收者ID -->  
-        <property name="clientId" value="client_119" />  
-        <property name="messageListener" ref="consumerMessageListener" />
-        <property name="pubSubNoLocal" value="false"></property> 
+        <property name="clientId" value="basic-client" />  
+        <!-- 这里名字可以任意改变，A 领取了，你可以改成B 还可以领取，可以举例不是很恰当 -->
+        <property name="durableSubscriptionName" value="basic-client"/>
     </bean> 
 </beans> 
