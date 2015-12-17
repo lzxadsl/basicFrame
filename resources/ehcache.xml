@@ -27,7 +27,7 @@
         当磁盘缓存达到maxElementsOnDisk指定的值时，Ehcache会清理磁盘中的缓存使用默认策略是LFU（使用频率最低）
     -->
 
-	<cache name="mobileCache"
+	<cache name="defaultCache"
         maxElementsInMemory="10000"
         eternal="false"
         overflowToDisk="true"

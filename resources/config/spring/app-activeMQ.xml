@@ -52,8 +52,8 @@
     <bean id="jmsContainer"
         class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="jmsFactory" />
-        <property name="destination" ref="consumedestination" />
-        <property name="messageListener" ref="destination" />
+        <property name="destination" ref="destination" />
+        <property name="messageListener" ref="consumerMessageListener" />
         <property name="pubSubNoLocal" value="false"></property> 
         <!-- 消息持久化,topic模式下有效 -->  
         <property name="subscriptionDurable" value="true"/> 

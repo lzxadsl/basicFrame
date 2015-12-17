@@ -1,5 +1,6 @@
 package com.frame.authority.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,8 +10,10 @@ import java.util.Set;
  * @version 1.0
  * @date 2015-12-4 下午4:11:02
  */
-public class User {
+public class User implements Serializable{
 
+	private static final long serialVersionUID = 8818372704349310291L;
+	
 	private String id;//主键
 	private String username;//用户名
 	private String password;//密码

@@ -35,11 +35,13 @@ public class SysTest {
 		for(User u : list){
 			System.out.println(u.getUsername());
 		}*/
-		User user = new User();
+		//User user = new User();
 		//testBean.test();
 		//userService.saveUser(user);
 		//userService.update(user);
-		userService.transation(user, "更新名称");
+		//userService.transation(user, "更新名称");
+		User user = userService.get(1);
+		System.out.println(user.getUsername());
 	}
 	
 	/*@Autowired
