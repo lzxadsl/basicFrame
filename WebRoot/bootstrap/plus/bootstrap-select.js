@@ -865,6 +865,9 @@
 		//var h = $input.outerHeight() ;
     	var $this = inputDownList.$contentDownList;
     	//$this.width(options.width);
+    	if(data_ == null || typeof data_ != 'object'){
+    		data_ = [];
+    	}
     	//设置下拉框位置
 		var itemsHtml = '';
 		/*for(var i=0;i<data_.length;i++){
