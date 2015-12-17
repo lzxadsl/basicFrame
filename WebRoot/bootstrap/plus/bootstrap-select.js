@@ -416,8 +416,8 @@
 		}
 		var $contentDownList = $this.$contentDownList;
 		//$contentDownList.show();
-		var vals = [];//按删除键删除时，用于存放新值
-		var removeVal = null;//被移除的值
+		//var vals = [];//按删除键删除时，用于存放新值
+		//var removeVal = null;//被移除的值
 		//k键值不是功能键或是ctrl+c、ctrl+x时才触发自动补全功能
 		if(!isFunctionalKey && (!ctrl || (ctrl && k == 67) || (ctrl && k == 88)) ){
 			var keyword_ = $.trim($this.$el.val());
@@ -866,16 +866,15 @@
     	var $this = inputDownList.$contentDownList;
     	//$this.width(options.width);
     	//设置下拉框位置
-
-		if(data_ == null || data_.length <= 0 ){
-			$this.html('');
-			return;
-		}
 		var itemsHtml = '';
-		for(var i=0;i<data_.length;i++){
+		/*for(var i=0;i<data_.length;i++){
 			options.formatter.call(this,data_[i]);
 			itemsHtml += '<div style="padding-left:17px;width:100%;height:20px;line-height:20px;">' + data_[i][options.textField] + '</div>';
-		}
+		}*/
+		$.each(data_,function(i,obj){
+			options.formatter.call(this,obj);
+			itemsHtml += '<div style="padding-left:17px;width:100%;height:20px;line-height:20px;">' + obj[options.textField] + '</div>';
+		});
 		$this.html(itemsHtml);
     	
 		//每行tr绑定数据，返回给回调函数
