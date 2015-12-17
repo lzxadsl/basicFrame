@@ -27,7 +27,10 @@ public class MethodCacheInterceptor implements MethodInterceptor,InitializingBea
 	}
 
 	/**
-	 * bean 被初始化后执行
+	 * bean 被初始化完成后执行
+	 * <p>Spring提供了当一个Bean初始化后执行方法的扩展点：InitializingBean。</p>
+	 * 这里的初始化指的就是当该Bean的属性被注入完成后（注意：这里并不是所有属性都需要被设置），
+	 * 所以InitializingBean接口提供的方法名称也很形象：afterPropertiesSet()
 	 * @author LiZhiXian
 	 * @version 1.0
 	 * @date 2015-12-16 下午3:54:47
