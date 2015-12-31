@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.jms.Destination;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,5 +112,25 @@ public class UserController {
 		user.setNick("admin");
 		//userService.transation(user,"更新名称");
 		return "200";
+	}
+	private static String SESSION_ID = null;
+	@RequestMapping(value="session.htm")
+	public String list(HttpServletRequest request,HttpServletResponse response,HttpSession session){
+		//4BDF9DA4098797AEBE9A8DE49BDD80CD
+		if(SESSION_ID == null){
+			System.out.println("----------------------8090设置SESSION_ID-------------------------");
+			SESSION_ID = session.getId();
+		}
+		System.out.println("sessionid:"+session.getId());
+		
+		//Cookie cookie = new Cookie("JSESSIONID","");
+		//cookie.setValue(SESSION_ID);
+		//response.addCookie(cookie);
+		System.out.println("获取hello值:"+session.getAttribute("hello"));
+		if(session.getAttribute("hello") == null){
+			System.out.println("----------------------设置hello值-------------------------");
+			session.setAttribute("hello","欢迎光临-lzx");
+		}
+		return "user/list";
 	}
 }
