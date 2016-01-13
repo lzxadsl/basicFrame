@@ -326,10 +326,12 @@
     	//文本框失去焦点
     	$input.unbind('blur').blur(function(){
     		//$this.hideDownList();
-    		if($this.options.cleanText && $this.options.editable && !$input.parent().find('input[type="hidden"]').val()){
-    			$input.val('');
-    			$this.options.onSelect.call(this,'',{});
-    		}
+    		setTimeout(function(){
+    			if($this.options.cleanText && $this.options.editable && !$input.parent().find('input[type="hidden"]').val()){
+        			$input.val('');
+        			$this.options.onSelect.call(this,'',{});
+        		}
+    		},200);
 		});
     	
     	//添加按键事件

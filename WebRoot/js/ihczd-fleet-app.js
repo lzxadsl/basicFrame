@@ -55,7 +55,9 @@ var ihczd_fleet_app = {
 	        emptyText:null,//空项显示文本
 	        selText:null,//根据该文本设置选中
 	        loading:true,//控件一初始化，马上执行数据加载
-	        onChange:function(val,text,data){}
+	        doChange:true,//加载时是否调用onChange方法
+	        onChange:function(val,text,data){},
+			onLoadSuccess:function(data){}
 	};
 	var AppSelect = function(el,opt){
 		this.$el = el;
@@ -74,14 +76,17 @@ var ihczd_fleet_app = {
 				dataType:'json',
 				success:function(data){
 					opt.data = data;
+					//setemptyText($select,opt)
 					initOptions($select,opt);
+					opt.onLoadSuccess.call(this,data);
 					this.initFinish = true;
 				},
 				error:function(err){
-					alert('数据加载失败');
+					throw "数据加载失败";
 				}
 			});
 		}else{
+			//setemptyText($select,opt)
 			initOptions($select,opt);
 			this.initFinish = true;
 		}
@@ -106,18 +111,28 @@ var ihczd_fleet_app = {
 				dataType:'json',
 				success:function(data){
 					opt.data = data;
-					$select.html('');
+					//setemptyText($select,opt);
+					var sel_str='';
 					if(opt.emptyText)
-						$select.append('<option value="">'+opt.emptyText+'</option>');
+						sel_str+='<option value="">'+opt.emptyText+'</option>';
 					var initValue = $.trim($select.attr('value'));//初始值，select上的value值
 					$.each(opt.data,function(index,obj){
 						if(opt.selText && opt.selText == obj[opt.textField]){//设置指定文本选中，特殊情况使用
-							$select.append('<option value="'+obj[opt.valueField]+'" selected>'+obj[opt.textField]+'</option>');
-							opt.onChange.call(this,obj[opt.valueField],obj[opt.textField],obj);
+							sel_str+='<option value="'+obj[opt.valueField]+'" selected>'+obj[opt.textField]+'</option>';
+							if(opt.doChange){
+								opt.onChange.call(this,obj[opt.valueField],obj[opt.textField],obj);
+							}
 						}else{
-							$select.append('<option value="'+obj[opt.valueField]+'">'+obj[opt.textField]+'</option>');
+							sel_str+='<option value="'+obj[opt.valueField]+'">'+obj[opt.textField]+'</option>';
 						}
-						$select.find('option:last').data('jsonData',obj);
+					});
+					$select.html(sel_str);
+					$.each(opt.data,function(index,obj){
+						if(opt.emptyText){
+							$select.find('option:eq('+(index+1)+')').data('jsonData',obj);
+						}else{
+							$select.find('option:eq('+(index)+')').data('jsonData',obj);
+						}
 					});
 				},
 				error:function(err){
@@ -126,17 +141,25 @@ var ihczd_fleet_app = {
 			});
 		}
 	};
+	//清空
+	AppSelect.prototype.clear = function(){
+		var $select = this.$el
+		var opt = this.options;
+		$select.html('');
+		if(opt.emptyText)
+			$select.prepend('<option value="">'+opt.emptyText+'</option>');
+	};
 	//获取选中值
 	AppSelect.prototype.getValue = function(){
 		var $select = this.$el;
 		var selected = $select.find('option:selected')[0];
-		return selected.value;
+		return selected?selected.value:'';
 	};
 	//获取选中文本
 	AppSelect.prototype.getText = function(){
 		var $select = this.$el;
 		var selected = $select.find('option:selected')[0];
-		return selected.text;
+		return selected?selected.text:'';
 	};
 	//根据valueField 字段的值，设置选择
 	AppSelect.prototype.select = function(value){
@@ -159,28 +182,42 @@ var ihczd_fleet_app = {
 		var $select = el;
 		var initValue = $.trim($select.attr('value'));//初始值，select上的value值
 		if(opt.data.length > 0){
-			$select.html('');
+			var sel_str='';
 			if(opt.emptyText)
-				$select.prepend('<option value="">'+opt.emptyText+'</option>');
+				sel_str+='<option value="">'+opt.emptyText+'</option>';
 			$.each(opt.data,function(index,obj){
 				if(opt.selText && opt.selText == obj[opt.textField]){//设置指定文本选中，特殊情况使用
-					$select.append('<option value="'+obj[opt.valueField]+'" selected>'+obj[opt.textField]+'</option>');
-					opt.onChange.call(this,obj[opt.valueField],obj[opt.textField],obj);
+					sel_str+='<option value="'+obj[opt.valueField]+'" selected>'+obj[opt.textField]+'</option>';
+					if(opt.doChange){
+						opt.onChange.call(this,obj[opt.valueField],obj[opt.textField],obj);
+					}
 				}
 				else if(initValue == obj[opt.valueField]){//值相等是，设置选中
-					$select.append('<option value="'+obj[opt.valueField]+'" selected>'+obj[opt.textField]+'</option>');
-					opt.onChange.call(this,obj[opt.valueField],obj[opt.textField],obj);
+					sel_str+='<option value="'+obj[opt.valueField]+'" selected>'+obj[opt.textField]+'</option>';
+					if(opt.doChange){
+						opt.onChange.call(this,obj[opt.valueField],obj[opt.textField],obj);
+					}
 				}else{
-					$select.append('<option value="'+obj[opt.valueField]+'">'+obj[opt.textField]+'</option>');
+					sel_str+='<option value="'+obj[opt.valueField]+'">'+obj[opt.textField]+'</option>';
 				}
-				$select.find('option:last').data('jsonData',obj);
+				//$select.find('option:last').data('jsonData',obj);
+			});
+			$select.html(sel_str);
+			$.each(opt.data,function(index,obj){
+				if(opt.emptyText){
+					$select.find('option:eq('+(index+1)+')').data('jsonData',obj);
+				}else{
+					$select.find('option:eq('+(index)+')').data('jsonData',obj);
+				}
 			});
 		}else{
 			if(opt.emptyText)
-				$select.prepend('<option value="">'+opt.emptyText+'</option>');
-			$select.find('option[value="'+initValue+'"]').attr("selected",true);
-			var selected = $select.find('option:selected')[0];
-			opt.onChange.call(this,selected.value,selected.text);
+				sel_str+='<option value="">'+opt.emptyText+'</option>';
+			if(opt.doChange){
+				var selected = $select.find('option:selected')[0];
+				opt.onChange.call(this,selected.value,selected.text);
+			}
+			$select.html(sel_str);
 		}
 		opt.initFinish = true;
 	}

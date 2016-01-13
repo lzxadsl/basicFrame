@@ -94,5 +94,6 @@
 	<classpathentry kind="lib" path="lib/cas/cas-server-core-3.4.12.1.jar"/>
 	<classpathentry kind="lib" path="lib/cas/cas-server-support-jdbc-3.4.12.1.jar"/>
 	<classpathentry kind="lib" path="lib/cas/spring-security-cas-client-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/quartz/quartz-all-1.5.2.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

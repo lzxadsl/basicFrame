@@ -1,4 +1,4 @@
-#Fri Dec 04 11:35:04 CST 2015
+#Wed Jan 13 13:44:09 CST 2016
 eclipse.preferences.version=1
-validator.Checked=resources/config/spring/app-ehcache.xml,resources/backup/app-dubbo-consumer.xml
+validator.Checked=/
 validator.Unchecked=
