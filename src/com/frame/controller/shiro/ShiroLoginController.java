@@ -33,7 +33,7 @@ public class ShiroLoginController {
 	 */
 	@RequestMapping(value="login.htm")
     public String showLoginForm(Model model,@ModelAttribute Login login){
-        return "login";
+        return "authority/login/login";
     }
 	/**
 	 * 跳转主页面
@@ -63,13 +63,13 @@ public class ShiroLoginController {
 			errors.reject( "error.login.generic",ue.getMessage());
 		}catch(AuthenticationException e){
 			model.addAttribute("error",e.getMessage());
-			errors.reject( "error.login.generic", "密码有误");
+			errors.reject("error.login.generic", "密码有误");
 		}
 		System.out.println("是否验证通过："+subject.isAuthenticated());
 		if(errors.hasErrors()){
             return showLoginForm(model,login);
         }else{
-            return "redirect:/shiro/main.htm";
+            return "redirect:/index/index.htm";
         }
 	}
 	/**

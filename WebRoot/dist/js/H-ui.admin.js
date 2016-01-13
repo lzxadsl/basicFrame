@@ -43,7 +43,7 @@ function getskincookie(){
 	if(v==null||v==""){
 		v="default";
 	}
-	$("#skin").attr("href","skin/"+v+"/skin.css");
+	$("#skin").attr("href","dist/skin/"+v+"/skin.css");
 }
 function Hui_admin_tab(obj){
 	if($(obj).attr('_href')){
@@ -231,7 +231,7 @@ $(function(){
 	$("#Hui-skin .dropDown-menu a").click(function(){
 		var v = $(this).attr("data-val");
 		setCookie("Huiskin", v);
-		$("#skin").attr("href","skin/"+v+"/skin.css");
-		$(window.frames.document).contents().find("#skin").attr("href","skin/"+v+"/skin.css");
+		$("#skin").attr("href","dist/skin/"+v+"/skin.css");
+		$(window.frames.document).contents().find("#skin").attr("href","dist/skin/"+v+"/skin.css");
 	});
 }); 

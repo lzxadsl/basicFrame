@@ -21,6 +21,6 @@ public class IndexController {
 	 */
 	@RequestMapping(value="index.htm")
 	public String index(){
-		return "/index";
+		return "index";
 	}
 }
