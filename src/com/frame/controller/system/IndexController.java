@@ -27,7 +27,7 @@ public class IndexController {
 	 */
 	@RequestMapping(value="index.htm")
 	public String index(){
-		testQuartz.method1(1);
+		//testQuartz.method1(1);
 		return "index";
 	}
 	
