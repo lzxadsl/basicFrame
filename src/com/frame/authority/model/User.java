@@ -14,16 +14,16 @@ public class User implements Serializable{
 
 	private static final long serialVersionUID = 8818372704349310291L;
 	
-	private String id;//主键
+	private Integer id;//主键
 	private String username;//用户名
 	private String password;//密码
 	private String salt;//盐 登入时采用盐+密码进行验证（盐的生成规则可以采用用户名+随机数）
 	private Set<Role> roleSet = new HashSet<Role>();//角色
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getUsername() {

@@ -6,8 +6,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.frame.authority.model.Role;
 import com.frame.authority.model.SysUser;
 import com.frame.authority.model.User;
+import com.frame.authority.quartz.QuartzThread;
+import com.frame.authority.quartz.TestQuartz;
+import com.frame.authority.service.IRoleService;
 import com.frame.authority.service.IUserService;
 import com.frame.system.service.IProducerService;
 import com.frame.test.service.ITestBeanService;
@@ -26,6 +31,10 @@ public class SysTest {
 	private IUserService userService;
 	@Autowired
 	private ITestBeanService testBean;
+	@Autowired
+	private TestQuartz testQuartz;
+	@Autowired
+	private IRoleService roleService;
 	@Test
 	public void test() {
 		/*PageData page = new PageData();
@@ -35,14 +44,21 @@ public class SysTest {
 		for(User u : list){
 			System.out.println(u.getUsername());
 		}*/
-		//User user = new User();
+		
 		//testBean.test();
 		//userService.saveUser(user);
-		//userService.update(user);
+		
+		Thread thread1 = new QuartzThread(testQuartz,1);
+		Thread thread2 = new QuartzThread(testQuartz,2);
+		thread1.start();
+		thread2.start();
+		/*Role role = new Role();
+		role.setId(3);
+		role.setName("vip123456");
+		roleService.updateRole(role);*/
 		//userService.transation(user, "更新名称");
 		//User user = userService.get(1);
-		//System.out.println(user.getUsername());
-		while(true){}
+		//while(true){}
 	}
 	
 	/*@Autowired

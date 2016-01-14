@@ -18,7 +18,7 @@ Date: 2015-12-08 17:15:52
 -- ----------------------------
 -- Sequence structure for sys_permission_id_seq
 -- ----------------------------
-DROP SEQUENCE "sys_permission_id_seq";
+DROP SEQUENCE IF EXISTS "sys_permission_id_seq";
 CREATE SEQUENCE "sys_permission_id_seq"
  INCREMENT 1
  MINVALUE 1
@@ -30,7 +30,7 @@ SELECT setval('"public"."sys_permission_id_seq"', 1, true);
 -- ----------------------------
 -- Sequence structure for sys_role_id_seq
 -- ----------------------------
-DROP SEQUENCE "sys_role_id_seq";
+DROP SEQUENCE IF EXISTS "sys_role_id_seq";
 CREATE SEQUENCE "sys_role_id_seq"
  INCREMENT 1
  MINVALUE 1
@@ -42,7 +42,7 @@ SELECT setval('"public"."sys_role_id_seq"', 1, true);
 -- ----------------------------
 -- Sequence structure for sys_role_permission_id_seq
 -- ----------------------------
-DROP SEQUENCE "sys_role_permission_id_seq";
+DROP SEQUENCE IF EXISTS "sys_role_permission_id_seq";
 CREATE SEQUENCE "sys_role_permission_id_seq"
  INCREMENT 1
  MINVALUE 1
@@ -54,7 +54,7 @@ SELECT setval('"public"."sys_role_permission_id_seq"', 3, true);
 -- ----------------------------
 -- Sequence structure for sys_user_id_seq
 -- ----------------------------
-DROP SEQUENCE "sys_user_id_seq";
+DROP SEQUENCE IF EXISTS "sys_user_id_seq";
 CREATE SEQUENCE "sys_user_id_seq"
  INCREMENT 1
  MINVALUE 1
@@ -65,7 +65,7 @@ CREATE SEQUENCE "sys_user_id_seq"
 -- ----------------------------
 -- Sequence structure for sys_user_role_id_seq
 -- ----------------------------
-DROP SEQUENCE "sys_user_role_id_seq";
+DROP SEQUENCE IF EXISTS "sys_user_role_id_seq";
 CREATE SEQUENCE "sys_user_role_id_seq"
  INCREMENT 1
  MINVALUE 1

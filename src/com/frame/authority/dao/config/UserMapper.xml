@@ -53,8 +53,7 @@
 	
 	<update id="update">
 	    update sys_user 
-		    set username = #{username},
-		    password = #{password}
+		    set username = #{username}
 		where id = #{id}
 	</update>
 	
