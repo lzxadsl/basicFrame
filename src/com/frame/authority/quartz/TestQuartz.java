@@ -23,6 +23,7 @@ public class TestQuartz {
 	@Autowired
 	private IUserService userService;
 	
+	@SuppressWarnings("static-access")
 	@Transactional
 	public void method1(int i){
 		System.out.println("-------------------------------方法1请求角色更新---------------------------------");
@@ -40,6 +41,10 @@ public class TestQuartz {
 		user.setId(1);
 		user.setUsername("lzx"+i);
 		userService.updateUser(user);
+		/*User user = new User();
+		user.setUsername("lzx10");
+		user.setPassword("a237f81982f74291dd10f7dc115e271b");
+		userService.save(user);*/
 		System.out.println("-------------------------------方法1执行完毕---------------------------------");
 	}
 	

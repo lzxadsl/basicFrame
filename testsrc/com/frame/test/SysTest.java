@@ -48,10 +48,11 @@ public class SysTest {
 		//testBean.test();
 		//userService.saveUser(user);
 		
-		Thread thread1 = new QuartzThread(testQuartz,1);
-		Thread thread2 = new QuartzThread(testQuartz,2);
-		thread1.start();
-		thread2.start();
+		User user = new User();
+		user.setUsername("lzx10");
+		user.setPassword("a237f81982f74291dd10f7dc115e271b");
+		userService.save(user);
+		System.out.println(user.getId());
 		/*Role role = new Role();
 		role.setId(3);
 		role.setName("vip123456");

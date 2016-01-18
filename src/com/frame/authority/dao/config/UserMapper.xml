@@ -64,7 +64,7 @@
 	    	#{username},#{password}
 	    )
 	    
-		<selectKey keyProperty="id" resultType="String" order="AFTER">  
+		<selectKey keyProperty="id" resultType="int" order="AFTER">  
 	        select max(id) from sys_user
 	    </selectKey> 
 	</insert>

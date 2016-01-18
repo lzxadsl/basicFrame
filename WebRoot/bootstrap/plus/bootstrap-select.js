@@ -150,6 +150,12 @@
 				if(args.params){
 					options['params'] = args.params;
 				}
+				if(args.emptyText != null){
+					options['emptyText'] = args.emptyText;
+				}
+				if(args.emptyValue != null){
+					options['emptyValue'] = args.emptyValue;
+				}
 				$(target).data('bootstrap.select').reload();
 			},
 			/**

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.frame.basic.dao.IBaseDao;
 import com.frame.basic.model.PageData;
 import com.frame.basic.service.IBaseService;
@@ -42,6 +44,7 @@ public class BaseService<T,K> extends SqlSessionTemplate implements IBaseService
 	}
 
 	@Override
+	@Transactional
 	public T save(T entity) {
 		getDao().insert(entity);
 		return entity;
