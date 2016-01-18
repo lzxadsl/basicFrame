@@ -35,8 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="hidden" id="TenantId" name="TenantId" value="" />
 <div class="header"></div>
 <div class="loginWraper">
-  <div id="loginform" class="loginBox">
-    <form:form class="form form-horizontal" action="shiro/doLogin.htm" modelAttribute="loginCommand" method="post">
+  <div class="loginBox">
+    <form:form id="loginform" class="form form-horizontal" action="shiro/doLogin.htm" modelAttribute="loginCommand" method="post">
       <div class="row cl">
         <label class="form-label col-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-8">
@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <div class="row cl">
         <div class="formControls col-8 col-offset-3">
           <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-          <img src="images/VerifyCode.aspx.png"> <a id="kanbuq" href="javascript:;">看不清，换一张</a> 
+          <img src="servlet/authImage.do" id="authImage"> <a id="kanbuq" href="javascript:;">看不清，换一张</a> 
         </div>
       </div>
       <div class="row">
@@ -72,8 +72,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
       <div class="row">
         <div class="formControls col-8 col-offset-3">
-          <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
-          <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+          <input type="button" id="loginbtn" class="btn btn-success radius size-L"  value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <input type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
         </div>
       </div>
     </form:form>
@@ -89,7 +89,29 @@ var _hmt = _hmt || [];
   hm.src = "//hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
+  //登入
+  $('#loginbtn').click(function(){
+  	$(this).attr('disabled','disabled');
+  	$(this).attr('value','登入中...');
+  	$('#loginform').submit();
+  });
+  //刷新验证码
+  $('#kanbuq').click(function(){
+  	$('#authImage').attr('src',chgUrl('servlet/authImage.do'));
+  });
 })();
+//时间戳
+//为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳
+function chgUrl(url){
+	var timestamp = (new Date()).valueOf();
+	//url = url.substring(0,17);
+	if((url.indexOf("&")>=0)){
+	 url = url + "×tamp=" + timestamp;
+	}else{
+	 url = url + "?timestamp=" + timestamp;
+	}
+	return url;
+}
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
 </script>

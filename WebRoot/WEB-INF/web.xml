@@ -216,6 +216,15 @@
 		<url-pattern>/services/*</url-pattern>
 	</servlet-mapping> -->
 	<!-- end XFire 配置 -->
+	<!-- 验证码生成 -->
+	<servlet>
+		<servlet-name>authImage</servlet-name>
+		<servlet-class>com.frame.system.servlet.AuthImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>authImage</servlet-name>
+		<url-pattern>/servlet/authImage.do</url-pattern>
+	</servlet-mapping>
 	<listener>
 		<listener-class>com.frame.system.listener.ServletListener</listener-class>
     </listener>

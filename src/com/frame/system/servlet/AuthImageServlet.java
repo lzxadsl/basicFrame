@@ -1,4 +1,4 @@
-package com.frame.system.servlert;
+package com.frame.system.servlet;
 
 import java.awt.Color;
 import java.awt.Font;
